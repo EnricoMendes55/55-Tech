@@ -91,10 +91,22 @@ const campo =
 
   const form = document.querySelector<HTMLFormElement>('#form-contato');
 
+  // Limpa o erro personalizado assim que a pessoa volta a digitar.
+  form?.addEventListener('input', (evento) => {
+    (evento.target as HTMLInputElement).setCustomValidity('');
+  });
+
   form?.addEventListener('submit', (evento) => {
     evento.preventDefault();
     const dados = new FormData(form);
     const texto = (nome: string) => String(dados.get(nome) ?? '').trim();
+
+    // `required` aceita campos só com espaços; aqui eles contam como vazios.
+    for (const nome of ['nome', 'mensagem']) {
+      const campo = form.elements.namedItem(nome) as HTMLInputElement | HTMLTextAreaElement;
+      campo.setCustomValidity(texto(nome) ? '' : 'Preencha este campo.');
+    }
+    if (!form.reportValidity()) return;
 
     const empresa = texto('empresa');
     const mensagem = [

@@ -19,7 +19,7 @@ export const site: Site = {
   slogan: 'Tecnologia que faz seu negócio evoluir.',
   descricao:
     'Estratégia, design e desenvolvimento para empresas que querem crescer com soluções digitais melhores.',
-  whatsapp: '',
+  whatsapp: '5548991777530',
   email: '',
   instagram: '55.tech',
   ga4Id: '',

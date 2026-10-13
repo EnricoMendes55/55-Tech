@@ -1,0 +1,16 @@
+---
+// Etiqueta pequena em fonte mono, para detalhes técnicos.
+interface Props {
+  class?: string;
+}
+const { class: classe } = Astro.props;
+---
+
+<span
+  class:list={[
+    'inline-block rounded-full border border-surface px-3 py-1 font-mono text-xs text-muted',
+    classe,
+  ]}
+>
+  <slot />
+</span>

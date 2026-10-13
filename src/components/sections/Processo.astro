@@ -1,0 +1,36 @@
+---
+import SectionHeading from '../ui/SectionHeading.astro';
+import { etapas, formatos } from '../../data/processo';
+---
+
+<section id="processo" class="mx-auto max-w-6xl px-5 py-20 sm:px-8 sm:py-28">
+  <SectionHeading
+    etiqueta="Processo"
+    titulo="Como funciona, da primeira conversa à entrega."
+    descricao="Um caminho simples, com escopo combinado antes de começar e sem surpresas no meio."
+  />
+
+  <ol class="mt-12 grid gap-x-6 gap-y-10 sm:grid-cols-2 lg:grid-cols-5">
+    {
+      etapas.map((etapa, indice) => (
+        <li class="border-t border-surface pt-5">
+          <p class="font-mono text-sm text-marca">{String(indice + 1).padStart(2, '0')}</p>
+          <h3 class="mt-3 font-display text-lg font-bold">{etapa.titulo}</h3>
+          <p class="mt-2 text-sm leading-relaxed text-muted">{etapa.descricao}</p>
+        </li>
+      ))
+    }
+  </ol>
+
+  <h3 class="mt-20 font-display text-2xl font-bold">Formatos de trabalho</h3>
+  <ul class="mt-6 grid gap-5 md:grid-cols-3">
+    {
+      formatos.map((formato) => (
+        <li class="rounded-2xl border border-surface bg-midnight p-6">
+          <h4 class="font-display text-lg font-bold">{formato.titulo}</h4>
+          <p class="mt-2 text-sm leading-relaxed text-muted">{formato.descricao}</p>
+        </li>
+      ))
+    }
+  </ul>
+</section>

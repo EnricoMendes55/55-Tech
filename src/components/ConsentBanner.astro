@@ -1,0 +1,60 @@
+---
+// Banner de consentimento. Só aparece quando existe um ID do GA4 em src/data/site.ts
+// e o visitante ainda não escolheu. Sem ID, o site não rastreia nada e o banner nunca é exibido.
+import { url } from '../utils/url';
+---
+
+<div
+  id="banner-consentimento"
+  role="region"
+  aria-label="Consentimento de cookies"
+  hidden
+  class="fixed inset-x-4 bottom-4 z-50 mx-auto max-w-xl rounded-2xl border border-surface bg-midnight p-5 shadow-2xl"
+>
+  <p class="text-sm leading-relaxed text-muted">
+    Usamos o Google Analytics para entender como o site é usado. Ele só é ativado se você aceitar.
+    <a href={url('/privacidade/')} class="text-ice underline underline-offset-4">Saiba mais</a>.
+  </p>
+  <div class="mt-4 flex gap-3">
+    <button type="button" data-consentimento="aceito" class="rounded-full bg-ice px-5 py-2 text-sm font-bold text-deep-black">
+      Aceitar
+    </button>
+    <button type="button" data-consentimento="recusado" class="rounded-full border border-surface px-5 py-2 text-sm font-bold text-ice">
+      Recusar
+    </button>
+  </div>
+</div>
+
+<script>
+  import { site } from '../data/site';
+  import { carregarGA4, lerEscolha, registrarEvento, salvarEscolha } from '../scripts/analytics';
+
+  const banner = document.querySelector<HTMLElement>('#banner-consentimento');
+
+  if (site.ga4Id && banner) {
+    const escolha = lerEscolha();
+    if (escolha === 'aceito') carregarGA4();
+    if (escolha === null) banner.hidden = false;
+
+    banner.querySelectorAll<HTMLButtonElement>('[data-consentimento]').forEach((botao) => {
+      botao.addEventListener('click', () => {
+        const aceitou = botao.dataset.consentimento === 'aceito';
+        salvarEscolha(aceitou ? 'aceito' : 'recusado');
+        banner.hidden = true;
+        // Recusar depois de ter aceitado exige recarregar para descarregar o GA4.
+        if (aceitou) carregarGA4();
+        else if (escolha === 'aceito') location.reload();
+      });
+    });
+
+    document.querySelectorAll('[data-abrir-consentimento]').forEach((botao) => {
+      botao.addEventListener('click', () => (banner.hidden = false));
+    });
+  }
+
+  // Qualquer elemento com data-evento="nome" vira um evento de conversão ao ser clicado.
+  document.addEventListener('click', (evento) => {
+    const alvo = (evento.target as HTMLElement).closest<HTMLElement>('[data-evento]');
+    if (alvo?.dataset.evento) registrarEvento(alvo.dataset.evento);
+  });
+</script>

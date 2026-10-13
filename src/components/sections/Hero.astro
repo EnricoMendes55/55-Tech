@@ -1,0 +1,67 @@
+---
+import Button from '../ui/Button.astro';
+import { site } from '../../data/site';
+import { contatoPrincipal } from '../../utils/contato';
+import { url } from '../../utils/url';
+---
+
+<section class="relative overflow-hidden">
+  <!-- Fundo decorativo: brilhos neon e uma grade em perspectiva (o toque synthwave). -->
+  <div class="pointer-events-none absolute inset-0" aria-hidden="true">
+    <div class="brilho brilho-ciano"></div>
+    <div class="brilho brilho-rosa"></div>
+    <div class="grade"></div>
+  </div>
+
+  <div class="relative mx-auto max-w-6xl px-5 pb-32 pt-20 sm:px-8 sm:pb-44 sm:pt-28">
+    <p class="font-mono text-xs uppercase tracking-[0.2em] text-cyan">Soluções digitais</p>
+    <h1 class="mt-5 max-w-3xl font-display text-4xl font-bold leading-[1.05] tracking-tight sm:text-6xl">
+      Tecnologia que faz seu negócio <span class="text-marca">evoluir.</span>
+    </h1>
+    <p class="mt-6 max-w-xl text-lg leading-relaxed text-muted">{site.descricao}</p>
+
+    <div class="mt-9 flex flex-wrap gap-4">
+      <Button href={contatoPrincipal.href} evento={contatoPrincipal.evento} externo>
+        {contatoPrincipal.rotulo}
+      </Button>
+      <Button href={url('/#servicos')} variante="secundario">Ver serviços</Button>
+    </div>
+
+    <ul class="mt-14 flex flex-wrap gap-x-8 gap-y-2 font-mono text-xs uppercase tracking-[0.2em] text-muted">
+      <li>Estratégia</li>
+      <li>Design</li>
+      <li>Desenvolvimento</li>
+    </ul>
+  </div>
+</section>
+
+<style>
+  /* Gradientes radiais em vez de filter: blur — mesmo efeito, bem mais leve para renderizar. */
+  .brilho {
+    position: absolute;
+    width: 56rem;
+    height: 56rem;
+  }
+  .brilho-ciano {
+    background: radial-gradient(closest-side, rgb(33 212 253 / 0.2), transparent);
+    top: -28rem;
+    left: -20rem;
+  }
+  .brilho-rosa {
+    background: radial-gradient(closest-side, rgb(247 71 185 / 0.15), transparent);
+    top: -18rem;
+    right: -24rem;
+  }
+  .grade {
+    position: absolute;
+    inset: auto -50% 0;
+    height: 16rem;
+    background-image:
+      linear-gradient(to right, rgb(120 86 255 / 0.5) 1px, transparent 1px),
+      linear-gradient(to bottom, rgb(120 86 255 / 0.5) 1px, transparent 1px);
+    background-size: 3.5rem 3.5rem;
+    transform: perspective(28rem) rotateX(62deg);
+    transform-origin: bottom;
+    mask-image: linear-gradient(to top, black, transparent 85%);
+  }
+</style>

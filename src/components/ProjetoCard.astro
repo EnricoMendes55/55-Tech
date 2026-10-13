@@ -1,0 +1,49 @@
+---
+import Tag from './ui/Tag.astro';
+import type { Projeto } from '../data/projetos';
+
+interface Props {
+  projeto: Projeto;
+}
+const { projeto } = Astro.props;
+const publicado = projeto.status === 'publicado' && projeto.link;
+---
+
+<article class="flex h-full flex-col overflow-hidden rounded-2xl border border-surface bg-midnight">
+  <!-- Miniatura abstrata enquanto o projeto não tem imagem própria. -->
+  <div class="relative h-40 bg-deep-black p-5" aria-hidden="true">
+    <div class="h-2 w-16 rounded-full bg-marca opacity-80"></div>
+    <div class="mt-4 h-2 w-3/4 rounded-full bg-surface"></div>
+    <div class="mt-2 h-2 w-1/2 rounded-full bg-surface"></div>
+    <div class="mt-5 grid grid-cols-3 gap-2">
+      <div class="h-10 rounded-md bg-surface/70"></div>
+      <div class="h-10 rounded-md bg-surface/70"></div>
+      <div class="h-10 rounded-md bg-surface/70"></div>
+    </div>
+  </div>
+
+  <div class="flex flex-1 flex-col p-6">
+    <div class="flex flex-wrap items-center justify-between gap-2">
+      <p class="font-mono text-xs uppercase tracking-widest text-lavender">{projeto.tipo}</p>
+      {!publicado && <Tag>Em desenvolvimento</Tag>}
+    </div>
+    <h3 class="mt-3 font-display text-xl font-bold">{projeto.titulo}</h3>
+    <p class="mt-2 leading-relaxed text-muted">{projeto.descricao}</p>
+    <ul class="mt-5 flex flex-wrap gap-2">
+      {
+        projeto.destaques.map((destaque) => (
+          <li>
+            <Tag>{destaque}</Tag>
+          </li>
+        ))
+      }
+    </ul>
+    {
+      publicado && (
+        <a href={projeto.link} class="mt-6 font-bold text-cyan underline-offset-4 hover:underline">
+          Ver projeto →
+        </a>
+      )
+    }
+  </div>
+</article>

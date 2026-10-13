@@ -1,0 +1,50 @@
+---
+import SectionHeading from '../ui/SectionHeading.astro';
+
+const diferenciais = [
+  {
+    titulo: 'Estratégia antes da tela',
+    descricao: 'Primeiro entendemos o objetivo do negócio. Só depois decidimos o que construir.',
+  },
+  {
+    titulo: 'Escopo claro',
+    descricao: 'Escopo, prazo e investimento combinados antes de começar.',
+  },
+  {
+    titulo: 'Resultados mensuráveis',
+    descricao:
+      'Trabalhamos com indicadores e melhorias que dá para acompanhar, sem prometer primeira posição no Google ou vendas garantidas.',
+  },
+  {
+    titulo: 'Linguagem acessível',
+    descricao: 'Explicamos cada decisão sem jargão, para você saber o que está contratando.',
+  },
+];
+---
+
+<section id="sobre" class="border-y border-surface/60 bg-midnight/40">
+  <div class="mx-auto grid max-w-6xl gap-12 px-5 py-20 sm:px-8 sm:py-28 lg:grid-cols-2">
+    <div>
+      <SectionHeading etiqueta="Sobre a 55 Tech" titulo="Tecnologia a serviço do negócio." />
+      <p class="mt-6 text-lg leading-relaxed text-muted">
+        A 55 Tech une estratégia, design e desenvolvimento para que cada entrega resolva um
+        problema real da sua empresa.
+      </p>
+      <p class="mt-4 text-lg leading-relaxed text-muted">
+        Fazemos bem um conjunto definido de coisas, com atenção de perto em cada projeto e
+        conversa franca sobre o que a tecnologia pode entregar.
+      </p>
+    </div>
+
+    <ul class="grid gap-x-8 gap-y-8 sm:grid-cols-2">
+      {
+        diferenciais.map((item) => (
+          <li class="border-l-2 border-violet pl-5">
+            <h3 class="font-display text-lg font-bold">{item.titulo}</h3>
+            <p class="mt-2 text-sm leading-relaxed text-muted">{item.descricao}</p>
+          </li>
+        ))
+      }
+    </ul>
+  </div>
+</section>

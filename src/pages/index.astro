@@ -1,0 +1,19 @@
+---
+// Página inicial: só monta as seções na ordem. O conteúdo de cada uma vem de src/data.
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Hero from '../components/sections/Hero.astro';
+import Servicos from '../components/sections/Servicos.astro';
+import Projetos from '../components/sections/Projetos.astro';
+import Processo from '../components/sections/Processo.astro';
+import Sobre from '../components/sections/Sobre.astro';
+import Contato from '../components/sections/Contato.astro';
+---
+
+<BaseLayout>
+  <Hero />
+  <Servicos />
+  <Projetos />
+  <Processo />
+  <Sobre />
+  <Contato />
+</BaseLayout>

@@ -1,0 +1,31 @@
+---
+// Botão em formato de link. `variante` muda o visual; `evento` nomeia o clique para o analytics.
+interface Props {
+  href: string;
+  variante?: 'primario' | 'secundario';
+  evento?: string;
+  externo?: boolean;
+  class?: string;
+}
+
+const { href, variante = 'primario', evento, externo = false, class: classe } = Astro.props;
+
+const estilos = {
+  primario: 'bg-marca text-deep-black hover:brightness-110',
+  secundario: 'border border-surface text-ice hover:border-lavender',
+};
+---
+
+<a
+  href={href}
+  data-evento={evento}
+  target={externo ? '_blank' : undefined}
+  rel={externo ? 'noopener noreferrer' : undefined}
+  class:list={[
+    'inline-flex items-center justify-center whitespace-nowrap rounded-full px-6 py-3 text-sm font-bold transition',
+    estilos[variante],
+    classe,
+  ]}
+>
+  <slot />
+</a>

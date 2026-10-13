@@ -1,0 +1,15 @@
+---
+// Cabeçalho padrão das seções: etiqueta mono, título e descrição opcional.
+interface Props {
+  etiqueta: string;
+  titulo: string;
+  descricao?: string;
+}
+const { etiqueta, titulo, descricao } = Astro.props;
+---
+
+<div class="max-w-2xl">
+  <p class="font-mono text-xs uppercase tracking-[0.2em] text-cyan">{etiqueta}</p>
+  <h2 class="mt-3 font-display text-3xl font-bold tracking-tight sm:text-4xl">{titulo}</h2>
+  {descricao && <p class="mt-4 text-lg leading-relaxed text-muted">{descricao}</p>}
+</div>

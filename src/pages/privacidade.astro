@@ -1,0 +1,62 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { site } from '../data/site';
+import { linkInstagram } from '../utils/contato';
+---
+
+<BaseLayout
+  titulo="Privacidade"
+  descricao="Como o site da 55 Tech trata os seus dados: o que é coletado, quando e como mudar sua escolha."
+>
+  <article class="mx-auto max-w-3xl px-5 py-20 sm:px-8">
+    <p class="font-mono text-xs uppercase tracking-[0.2em] text-cyan">Privacidade</p>
+    <h1 class="mt-3 font-display text-4xl font-bold tracking-tight">Política de privacidade</h1>
+
+    <div class="mt-10 space-y-8 leading-relaxed text-muted">
+      <section>
+        <h2 class="font-display text-xl font-bold text-ice">O que este site coleta</h2>
+        <p class="mt-3">
+          Por padrão, nada. Este site não tem cadastro, não usa cookies de publicidade e não
+          armazena as mensagens que você escreve.
+        </p>
+      </section>
+
+      <section>
+        <h2 class="font-display text-xl font-bold text-ice">Formulário de contato</h2>
+        <p class="mt-3">
+          O formulário apenas monta uma mensagem e abre o WhatsApp no seu aparelho. O envio
+          acontece pelo WhatsApp, quando você confirma, e segue as regras de privacidade desse
+          serviço.
+        </p>
+      </section>
+
+      <section>
+        <h2 class="font-display text-xl font-bold text-ice">Estatísticas de uso</h2>
+        <p class="mt-3">
+          Quando ativado, usamos o Google Analytics para entender quais páginas são visitadas e
+          quais botões são clicados. Ele só é carregado depois que você aceita no aviso de
+          cookies. Se recusar, nenhuma informação de navegação é enviada. Sua escolha fica salva
+          apenas no seu navegador e pode ser alterada em "Preferências de cookies", no rodapé.
+        </p>
+      </section>
+
+      <section>
+        <h2 class="font-display text-xl font-bold text-ice">Hospedagem</h2>
+        <p class="mt-3">
+          O site é hospedado no GitHub Pages. Como qualquer servidor web, o GitHub pode registrar
+          dados técnicos de acesso, como o endereço IP, por motivos de segurança.
+        </p>
+      </section>
+
+      <section>
+        <h2 class="font-display text-xl font-bold text-ice">Dúvidas</h2>
+        <p class="mt-3">
+          Fale com a gente
+          {site.email && <>pelo e-mail <a href={`mailto:${site.email}`} class="text-ice underline underline-offset-4">{site.email}</a> ou</>}
+          pelo Instagram
+          <a href={linkInstagram} class="text-ice underline underline-offset-4" target="_blank" rel="noopener noreferrer">@{site.instagram}</a>.
+        </p>
+      </section>
+    </div>
+  </article>
+</BaseLayout>

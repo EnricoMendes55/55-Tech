@@ -1,0 +1,37 @@
+---
+import SectionHeading from '../ui/SectionHeading.astro';
+import Button from '../ui/Button.astro';
+import ServicoCard from '../ServicoCard.astro';
+import { auditoria, servicos } from '../../data/servicos';
+import { url } from '../../utils/url';
+---
+
+<section id="servicos" class="mx-auto max-w-6xl px-5 py-20 sm:px-8 sm:py-28">
+  <SectionHeading
+    etiqueta="Serviços"
+    titulo="Quatro frentes, um objetivo: melhorar o seu negócio."
+    descricao="Do primeiro site ao sistema sob medida, cada serviço parte de um problema concreto da sua empresa."
+  />
+
+  <ul class="mt-12 grid gap-5 md:grid-cols-2">
+    {
+      servicos.map((servico) => (
+        <li>
+          <ServicoCard servico={servico} />
+        </li>
+      ))
+    }
+  </ul>
+
+  <aside class="borda-marca mt-5 flex flex-col gap-6 rounded-2xl p-7 md:flex-row md:items-center md:justify-between">
+    <div class="max-w-2xl">
+      <p class="font-mono text-xs uppercase tracking-[0.2em] text-cyan">Por onde começar</p>
+      <h3 class="mt-3 font-display text-2xl font-bold">{auditoria.titulo}</h3>
+      <p class="mt-3 leading-relaxed text-muted">{auditoria.descricao}</p>
+      <ul class="mt-4 flex flex-wrap gap-x-6 gap-y-1 text-sm text-ice">
+        {auditoria.entregas.map((entrega) => <li>+ {entrega}</li>)}
+      </ul>
+    </div>
+    <Button href={url('/#contato')} variante="secundario" class="shrink-0">Pedir uma auditoria</Button>
+  </aside>
+</section>

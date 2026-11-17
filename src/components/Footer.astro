@@ -18,13 +18,14 @@ const currentPath = Astro.url.pathname;
     </div>
 
     <nav aria-label="Rodapé">
-      <ul class="grid grid-cols-2 gap-x-10 gap-y-3 text-sm text-muted">
+      <!-- py-1 nos links + gap-y-1 e -my-1: área de toque de 28 px sem mudar a posição do texto. -->
+      <ul class="-my-1 grid grid-cols-2 gap-x-10 gap-y-1 text-sm text-muted">
         {navigation.map((item) => (
           <li>
             <a
               href={url(item.path)}
               aria-current={isCurrentPage(item.path, currentPath) ? 'page' : undefined}
-              class="transition hover:text-ice"
+              class="inline-block py-1 transition hover:text-ice"
             >
               {item.label}
             </a>
@@ -36,7 +37,7 @@ const currentPath = Astro.url.pathname;
             data-event="instagram_click"
             target="_blank"
             rel="noopener noreferrer"
-            class="transition hover:text-ice"
+            class="inline-block py-1 transition hover:text-ice"
           >
             Instagram
           </a>
@@ -50,16 +51,16 @@ const currentPath = Astro.url.pathname;
       <p>
         © {year} {site.name}
       </p>
-      <div class="flex gap-6">
+      <div class="-my-1 flex gap-6">
         <a
           href={url('/privacidade/')}
           aria-current={isCurrentPage('/privacidade/', currentPath) ? 'page' : undefined}
-          class="transition hover:text-ice"
+          class="inline-block py-1 transition hover:text-ice"
         >
           Privacidade
         </a>
         {site.ga4Id && (
-          <button type="button" data-open-consent class="transition hover:text-ice">
+          <button type="button" data-open-consent class="py-1 transition hover:text-ice">
             Preferências de cookies
           </button>
         )}

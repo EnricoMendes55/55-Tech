@@ -19,13 +19,23 @@ O site abre em http://localhost:4321/55-Tech/ e recarrega a cada alteração.
 - `ga4Id`: vazio = sem analytics e sem banner de cookies. Preenchido, o banner aparece e o
   Google Analytics só carrega depois que o visitante aceita.
 
-**Editar um serviço ou a Auditoria Digital 55** — `src/data/services.ts`.
+**Editar um serviço ou a Auditoria Digital 55** — `src/content/services/<nome>.md`.
+O cabeçalho entre `---` tem os campos curtos (título, resumo do card, objetivo, descrição para
+buscadores de até 160 caracteres); abaixo dele vem o texto da página, em Markdown
+(`## Título`, listas com `-`, `**negrito**`). Use aspas nos textos do cabeçalho. A mudança aparece
+na home, em `/servicos/`, na página do serviço e no formulário.
+
+**Adicionar um serviço** — copie um arquivo de `src/content/services/`, renomeie (o nome vira a
+URL, em português e sem acentos: `novo-servico.md` → `/servicos/novo-servico/`) e ajuste
+`order` e `number`. Depois de publicada, não renomeie o arquivo: a URL muda e links quebram.
 
 **Adicionar, editar ou remover um projeto** — `src/data/projects.ts`. Copie um objeto da lista
 e altere os campos. Quando o projeto estiver no ar, use `status: 'published'` e preencha `link`:
 a etiqueta "Em desenvolvimento" some e aparece "Ver projeto".
 
 **Etapas do processo e formatos de trabalho** — `src/data/process.ts`.
+
+**Diferenciais (home e Quem somos)** — `src/data/about.ts`.
 
 **Itens do menu** — `navigation` em `src/data/site.ts`. Cada item tem `label` e `path`:
 âncora da página inicial (`'/#servicos'`) ou página (`'/servicos/'`). O caminho é URL pública;
@@ -86,8 +96,13 @@ npm run check
 npm run build
 ```
 
+```bash
+npm run check:links
+```
+
 - `format` reescreve os arquivos no padrão do Prettier (`format:check` só confere; é o que o CI roda).
 - `check` precisa terminar com 0 erros, 0 avisos.
+- `check:links` confere, depois do build, se todo link interno e toda âncora existem.
 - Conferir no `npm run dev` em 375 px e 1280 px e navegar por teclado no que mudou.
 
 ## Git

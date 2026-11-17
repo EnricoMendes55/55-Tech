@@ -9,7 +9,8 @@ Actions, em "Run workflow"):
 2. `npm run check` — erros de TypeScript e Astro bloqueiam a publicação.
 3. `npm run format:check` — arquivos fora do padrão do Prettier bloqueiam a publicação.
 4. `npm run build` — gera `dist/`.
-5. Envia `dist/` ao GitHub Pages.
+5. `npm run check:links` — um link interno quebrado bloqueia a publicação.
+6. Envia `dist/` ao GitHub Pages.
 
 Push em outras branches não publica nada.
 
@@ -23,13 +24,14 @@ Push em outras branches não publica nada.
 
 Abra a execução com X vermelho e veja o passo que falhou.
 
-| Passo          | Causa comum                       | O que fazer                                      |
-| -------------- | --------------------------------- | ------------------------------------------------ |
-| `npm ci`       | `package-lock.json` desatualizado | Rodar `npm install` localmente e commitar o lock |
-| `check`        | Erro de tipo ou import quebrado   | Rodar `npm run check` localmente e corrigir      |
-| `format:check` | Arquivo não formatado             | Rodar `npm run format` e commitar                |
-| `build`        | Erro em componente ou página      | Rodar `npm run build` localmente                 |
-| deploy         | Pages desativado ou permissão     | Conferir Settings → Pages                        |
+| Passo          | Causa comum                                                       | O que fazer                                              |
+| -------------- | ----------------------------------------------------------------- | -------------------------------------------------------- |
+| `npm ci`       | `package-lock.json` desatualizado                                 | Rodar `npm install` localmente e commitar o lock         |
+| `check`        | Erro de tipo ou import quebrado                                   | Rodar `npm run check` localmente e corrigir              |
+| `format:check` | Arquivo não formatado                                             | Rodar `npm run format` e commitar                        |
+| `build`        | Erro em componente ou página, ou campo inválido em `src/content/` | Rodar `npm run build` localmente e ler a mensagem        |
+| `check:links`  | Link ou âncora que não existe                                     | Rodar `npm run build` e `npm run check:links` localmente |
+| deploy         | Pages desativado ou permissão                                     | Conferir Settings → Pages                                |
 
 Enquanto o novo deploy não passa, o site continua com a última versão publicada.
 

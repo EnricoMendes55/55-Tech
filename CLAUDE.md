@@ -17,6 +17,7 @@ Documentação detalhada em `docs/`: architecture.md, maintenance.md, deployment
 - `npm run check` — erros de TypeScript e Astro
 - `npm run format` / `npm run format:check` — Prettier
 - `npm run build` / `npm run preview` — build de produção e conferência local
+- `npm run check:links` — links internos e âncoras do build (depois do `build`)
 
 ## Onde cada coisa vive
 
@@ -93,7 +94,8 @@ Documentação detalhada em `docs/`: architecture.md, maintenance.md, deployment
 
 ## Antes de concluir uma tarefa
 
-1. `npm run check`, `npm run format:check` e `npm run build` sem erros ou avisos.
+1. `npm run check`, `npm run format:check`, `npm run build` e `npm run check:links` sem erros
+   ou avisos.
 2. Conferir em 375 px e 1280 px; navegar por teclado nas partes alteradas.
 3. Nenhum link interno quebrado; nenhum texto comercial alterado sem aprovação.
 4. Atualizar `docs/` se a mudança alterar estrutura, manutenção ou publicação.

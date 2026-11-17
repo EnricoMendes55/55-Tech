@@ -20,27 +20,40 @@ Sem React: a interatividade (menu do celular, formulário, consentimento) cabe e
 ```
 astro.config.mjs        Endereço do site (site + base), integrações e Tailwind
 public/                 Copiado como está: favicon.png e og.png (imagem de compartilhamento)
+tools/check-links.mjs   Confere os links internos de dist/ (roda no CI depois do build)
 src/
+  content.config.ts     Schemas das coleções de conteúdo (Content Collections)
+  content/services/     Um Markdown por serviço; o nome do arquivo é a URL (/servicos/<nome>/)
   assets/               Logos; o Astro otimiza no build (astro:assets)
   styles/global.css     Tailwind, tokens da marca (@theme), utilitários e estilos base
   data/                 Conteúdo estruturado e tipado
     site.ts             Nome, slogan, descrição, contatos, GA4 e menu (navigation)
-    services.ts         Os quatro serviços e a oferta da Auditoria Digital 55
+    about.ts            Diferenciais (home e /quem-somos/)
     projects.ts         Projetos & Experimentos
     process.ts          Etapas do processo e formatos de trabalho
   layouts/
     BaseLayout.astro    <head> (SEO, Open Graph, JSON-LD), Header, Footer e banner
   components/
-    layout/             Estrutura: Container, Section, PageHeader
+    layout/             Estrutura: Container, Section, PageHeader, Breadcrumbs, Prose
     ui/                 Peças genéricas: Button, Card, Eyebrow, SectionHeading, Tag
     sections/           Uma seção da página inicial por arquivo (Hero, Services, ...)
-    Header, Footer, ServiceCard, ProjectCard, ConsentBanner
+    Header, Footer, ConsentBanner
+    ServiceCard, ServiceGrid        Card de serviço; grade dos serviços + Auditoria em destaque
+    ProcessSteps, WorkFormats       Etapas do processo; formatos de trabalho
+    ContactChannels, ContactForm    Canais de contato; formulário que abre o WhatsApp
+    CallToAction                    Bloco final "Vamos conversar" das páginas internas
+    ProjectCard
   scripts/analytics.ts  Consentimento e GA4 (roda no navegador)
   utils/
-    url.ts              url() prefixa links internos com o base path; isCurrentPage() marca a página atual
-    contact.ts          Links de WhatsApp/Instagram e o contato principal
+    url.ts              url() prefixa links internos; getCurrentState() calcula o aria-current
+    contact.ts          Links de WhatsApp/Instagram, contato principal e getContactAbout(assunto)
+    services.ts         getServices(), getAuditOffer() e servicePath() sobre a coleção de serviços
   pages/                Cada arquivo vira uma rota
     index.astro         Página inicial: só monta as seções
+    servicos/index.astro    /servicos/: todos os serviços e os formatos de trabalho
+    servicos/[slug].astro   /servicos/<nome>/: uma página por arquivo de content/services
+    quem-somos.astro    /quem-somos/
+    contato.astro       /contato/
     privacidade.astro   Política de privacidade
     404.astro           Página não encontrada (noindex)
     robots.txt.ts       Gera o robots.txt apontando para o sitemap
@@ -48,10 +61,16 @@ src/
 
 ## Fluxo
 
-`src/data/*.ts` → componentes (`sections/`, cards, `ui/`) → páginas (`src/pages/`) → HTML estático em `dist/`.
+`src/content/` e `src/data/` → componentes → páginas (`src/pages/`) → HTML estático em `dist/`.
 
-Os componentes leem os dados e desenham; para mudar um texto ou adicionar um item,
-edita-se o arquivo de dados.
+- **Texto longo com corpo** (páginas de serviço; no futuro, artigos e cases) fica em
+  `src/content/`, em Markdown, validado pelos schemas de `src/content.config.ts`. Um campo
+  faltando ou errado faz o build falhar com a mensagem do problema.
+- **Dados curtos** (menu, contatos, etapas, diferenciais) ficam em `src/data/*.ts`.
+- Os componentes leem esses arquivos e desenham; para mudar um texto ou adicionar um item,
+  edita-se o arquivo de conteúdo ou de dados.
+- A coleção `services` é a única fonte dos serviços: os cards da home, `/servicos/`, as
+  páginas de cada serviço e as opções do formulário leem dela.
 
 ## Componentes de layout e de interface
 
@@ -105,6 +124,10 @@ edita-se o arquivo de dados.
 - **Navegação.** Itens de `navigation` (`site.ts`) têm `label` e `path`: âncora (`'/#servicos'`)
   ou página (`'/servicos/'`). O item da página aberta recebe `aria-current="page"`.
 - **404** tem `noindex` e não declara canonical.
+- **Páginas internas** têm trilha de navegação (`Breadcrumbs`, com JSON-LD BreadcrumbList).
+  As de serviço também declaram JSON-LD `Service` pelo `structuredData` do `BaseLayout`.
+- **Cards de serviço** são inteiramente clicáveis: o link fica no título e um pseudo-elemento
+  cobre o card, mantendo um único link por card para leitores de tela.
 - **URLs e âncoras públicas em português** (`/privacidade/`, `#servicos`, `#contato`...),
   porque são lidas por pessoas e buscadores; nomes técnicos em inglês.
 
@@ -113,4 +136,4 @@ edita-se o arquivo de dados.
 Planejada para as próximas fases, sujeita a aprovação a cada etapa:
 
 - `src/content/` + `src/content.config.ts` (Content Collections) para blog, cases e páginas de serviço.
-- Páginas: `/servicos/`, `/planos/`, `/cases/`, `/blog/`, `/quem-somos/`, `/contato/`.
+- Páginas: `/planos/`, `/cases/` e `/blog/`, quando houver conteúdo real (preços, clientes, artigos).

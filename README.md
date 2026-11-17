@@ -13,6 +13,7 @@ Publicado em https://enricomendes55.github.io/55-Tech/ pelo GitHub Pages.
 | `npm run format`       | Formata os arquivos com o Prettier                                   |
 | `npm run format:check` | Confere a formatação sem alterar nada                                |
 | `npm run build`        | Gera o site final na pasta `dist/`                                   |
+| `npm run check:links`  | Confere os links internos do build                                   |
 | `npm run preview`      | Serve a pasta `dist/` para conferir o build                          |
 
 ## Documentação

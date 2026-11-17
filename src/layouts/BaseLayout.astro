@@ -40,7 +40,8 @@ const jsonLd = {
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>{fullTitle}</title>
     <meta name="description" content={description} />
-    <link rel="canonical" href={canonicalUrl} />
+    {/* Página fora do índice (ex.: 404) não declara endereço canônico. */}
+    {!noIndex && <link rel="canonical" href={canonicalUrl} />}
     {noIndex && <meta name="robots" content="noindex" />}
     <link rel="icon" type="image/png" href={url('/favicon.png')} />
     <meta name="theme-color" content="#090a14" />

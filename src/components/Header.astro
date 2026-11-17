@@ -107,4 +107,12 @@ const currentPath = Astro.url.pathname;
   panel?.addEventListener('click', (event) => {
     if ((event.target as HTMLElement).closest('a')) setOpen(false);
   });
+
+  // Esc fecha o menu e devolve o foco ao botão, para quem navega pelo teclado não se perder.
+  document.addEventListener('keydown', (event) => {
+    if (event.key === 'Escape' && isOpen()) {
+      setOpen(false);
+      button?.focus();
+    }
+  });
 </script>

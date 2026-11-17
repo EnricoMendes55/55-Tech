@@ -35,9 +35,9 @@ interface NavigationItem {
 }
 
 export const navigation: NavigationItem[] = [
-  { label: 'Serviços', path: '/#servicos' },
+  { label: 'Serviços', path: '/servicos/' },
   { label: 'Projetos', path: '/#projetos' },
   { label: 'Processo', path: '/#processo' },
-  { label: 'Sobre', path: '/#sobre' },
-  { label: 'Contato', path: '/#contato' },
+  { label: 'Sobre', path: '/quem-somos/' },
+  { label: 'Contato', path: '/contato/' },
 ];

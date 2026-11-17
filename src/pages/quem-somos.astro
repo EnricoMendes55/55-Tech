@@ -1,0 +1,77 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Container from '../components/layout/Container.astro';
+import Section from '../components/layout/Section.astro';
+import Breadcrumbs from '../components/layout/Breadcrumbs.astro';
+import PageHeader from '../components/layout/PageHeader.astro';
+import SectionHeading from '../components/ui/SectionHeading.astro';
+import ProcessSteps from '../components/ProcessSteps.astro';
+import CallToAction from '../components/CallToAction.astro';
+import { differentiators } from '../data/about';
+import { url } from '../utils/url';
+---
+
+<BaseLayout
+  title="Quem somos"
+  description="A 55 Tech une estratégia, design e desenvolvimento para que cada entrega resolva um problema real da sua empresa. Conheça como trabalhamos."
+>
+  <Container class="pb-20 pt-10 sm:pb-28">
+    <Breadcrumbs items={[{ label: 'Quem somos' }]} />
+    <div class="mt-8">
+      <PageHeader
+        eyebrow="Sobre a 55 Tech"
+        title="Tecnologia a serviço do negócio."
+        description="A 55 Tech une estratégia, design e desenvolvimento para que cada entrega resolva um problema real da sua empresa."
+      />
+    </div>
+
+    <div class="mt-16 grid gap-12 lg:grid-cols-2">
+      <div>
+        <h2 class="font-display text-2xl font-bold">Uma empresa enxuta, de propósito.</h2>
+        <p class="mt-4 text-lg leading-relaxed text-muted">
+          A 55 Tech não é uma agência genérica nem uma empresa gigante que promete fazer tudo.
+          Trabalhamos com um conjunto definido de serviços (presença digital, sistemas, design de
+          produto e performance) e acompanhamos cada projeto de perto, do primeiro contato à
+          entrega.
+        </p>
+        <p class="mt-4 text-lg leading-relaxed text-muted">
+          Isso significa decisões explicadas sem jargão, escopo combinado antes de começar e
+          conversa franca sobre o que a tecnologia pode entregar.
+        </p>
+        <p class="mt-4 text-lg leading-relaxed text-muted">
+          O próprio site da 55 Tech segue os fundamentos que aplicamos nos projetos: carregamento
+          rápido, boa leitura no celular, acessibilidade, SEO técnico e medição de acessos só com
+          consentimento.
+        </p>
+        <p class="mt-6">
+          <a href={url('/servicos/')} class="font-bold text-cyan hover:underline">
+            Conheça os serviços →
+          </a>
+        </p>
+      </div>
+
+      <div>
+        <h2 class="font-display text-2xl font-bold">O que nos guia</h2>
+        <ul class="mt-6 grid gap-x-8 gap-y-8 sm:grid-cols-2">
+          {differentiators.map((item) => (
+            <li class="border-l-2 border-violet pl-5">
+              <h3 class="font-display text-lg font-bold">{item.title}</h3>
+              <p class="mt-2 text-sm leading-relaxed text-muted">{item.description}</p>
+            </li>
+          ))}
+        </ul>
+      </div>
+    </div>
+  </Container>
+
+  <Section tone="alt">
+    <SectionHeading
+      eyebrow="Processo"
+      title="Como funciona, da primeira conversa à entrega."
+      description="Um caminho simples, com escopo combinado antes de começar e sem surpresas no meio."
+    />
+    <ProcessSteps class="mt-12 lg:grid-cols-5" />
+  </Section>
+
+  <CallToAction />
+</BaseLayout>

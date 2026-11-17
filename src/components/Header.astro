@@ -5,7 +5,7 @@ import Button from './ui/Button.astro';
 import Container from './layout/Container.astro';
 import { navigation } from '../data/site';
 import { primaryContact } from '../utils/contact';
-import { isCurrentPage, url } from '../utils/url';
+import { getCurrentState, url } from '../utils/url';
 
 const currentPath = Astro.url.pathname;
 ---
@@ -23,8 +23,8 @@ const currentPath = Astro.url.pathname;
           <li>
             <a
               href={url(item.path)}
-              aria-current={isCurrentPage(item.path, currentPath) ? 'page' : undefined}
-              class="transition hover:text-ice aria-[current=page]:text-ice"
+              aria-current={getCurrentState(item.path, currentPath)}
+              class="transition hover:text-ice aria-[current]:text-ice"
             >
               {item.label}
             </a>
@@ -79,7 +79,7 @@ const currentPath = Astro.url.pathname;
         <li>
           <a
             href={url(item.path)}
-            aria-current={isCurrentPage(item.path, currentPath) ? 'page' : undefined}
+            aria-current={getCurrentState(item.path, currentPath)}
             class="block py-3 font-medium text-ice"
           >
             {item.label}

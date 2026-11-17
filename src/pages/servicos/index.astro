@@ -1,0 +1,41 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Container from '../../components/layout/Container.astro';
+import Section from '../../components/layout/Section.astro';
+import Breadcrumbs from '../../components/layout/Breadcrumbs.astro';
+import PageHeader from '../../components/layout/PageHeader.astro';
+import SectionHeading from '../../components/ui/SectionHeading.astro';
+import ServiceGrid from '../../components/ServiceGrid.astro';
+import WorkFormats from '../../components/WorkFormats.astro';
+import CallToAction from '../../components/CallToAction.astro';
+---
+
+<BaseLayout
+  title="Serviços"
+  description="Presença digital, sistemas sob medida, design de produto e performance: os serviços da 55 Tech para melhorar o seu negócio com tecnologia."
+>
+  <Container class="pb-20 pt-10 sm:pb-28">
+    <Breadcrumbs items={[{ label: 'Serviços' }]} />
+    <div class="mt-8">
+      <PageHeader
+        eyebrow="Serviços"
+        title="Quatro frentes, um objetivo: melhorar o seu negócio."
+        description="Do primeiro site ao sistema sob medida, cada serviço parte de um problema concreto da sua empresa."
+      />
+    </div>
+    <div class="mt-12">
+      <ServiceGrid contactPath="/contato/" headingTag="h2" />
+    </div>
+  </Container>
+
+  <Section tone="alt">
+    <SectionHeading
+      eyebrow="Formatos de trabalho"
+      title="Do projeto pontual ao acompanhamento contínuo."
+      description="Cada serviço pode ser contratado no formato que faz mais sentido para o momento da sua empresa."
+    />
+    <WorkFormats headingTag="h3" class="mt-12" />
+  </Section>
+
+  <CallToAction />
+</BaseLayout>

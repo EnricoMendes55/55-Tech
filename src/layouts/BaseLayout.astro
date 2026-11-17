@@ -13,9 +13,11 @@ interface Props {
   description?: string;
   /** true em páginas que não devem aparecer no Google (ex.: 404). */
   noIndex?: boolean;
+  /** Dados estruturados extras da página (ex.: Service), além do Organization padrão. */
+  structuredData?: Record<string, unknown>[];
 }
 
-const { title, description = site.description, noIndex = false } = Astro.props;
+const { title, description = site.description, noIndex = false, structuredData = [] } = Astro.props;
 
 const fullTitle = title ? `${title} | ${site.name}` : `${site.name} | ${site.tagline}`;
 const canonicalUrl = new URL(Astro.url.pathname, Astro.site);
@@ -56,6 +58,9 @@ const jsonLd = {
     <meta name="twitter:card" content="summary_large_image" />
 
     <script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />
+    {structuredData.map((data) => (
+      <script type="application/ld+json" set:html={JSON.stringify(data)} />
+    ))}
   </head>
   <body class="antialiased">
     <a

@@ -9,10 +9,19 @@ export function url(path = '/'): string {
 const withoutTrailingSlash = (path: string) => path.replace(/\/+$/, '') || '/';
 
 /**
- * true quando `path` (sem o base path, ex.: '/servicos/') é a página aberta.
- * Âncoras ('/#servicos') nunca contam como página atual.
+ * Estado de `path` (sem o base path) em relação à página aberta, para o atributo aria-current:
+ * 'page' quando é a própria página; 'true' quando a página aberta está dentro dela
+ * (ex.: /servicos/presenca-digital/ dentro de /servicos/); undefined nos demais casos.
+ * Âncoras ('/#servicos') e a página inicial nunca contam como seção atual.
  */
-export function isCurrentPage(path: string, currentPathname: string): boolean {
-  if (path.includes('#')) return false;
-  return withoutTrailingSlash(url(path)) === withoutTrailingSlash(currentPathname);
+export function getCurrentState(
+  path: string,
+  currentPathname: string,
+): 'page' | 'true' | undefined {
+  if (path.includes('#')) return undefined;
+  const target = withoutTrailingSlash(url(path));
+  const current = withoutTrailingSlash(currentPathname);
+  if (target === current) return 'page';
+  if (path !== '/' && current.startsWith(`${target}/`)) return 'true';
+  return undefined;
 }

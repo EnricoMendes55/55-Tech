@@ -4,7 +4,7 @@ import logo from '../assets/logo-horizontal.png';
 import Container from './layout/Container.astro';
 import { navigation, site } from '../data/site';
 import { instagramUrl } from '../utils/contact';
-import { isCurrentPage, url } from '../utils/url';
+import { getCurrentState, url } from '../utils/url';
 
 const year = new Date().getFullYear();
 const currentPath = Astro.url.pathname;
@@ -24,7 +24,7 @@ const currentPath = Astro.url.pathname;
           <li>
             <a
               href={url(item.path)}
-              aria-current={isCurrentPage(item.path, currentPath) ? 'page' : undefined}
+              aria-current={getCurrentState(item.path, currentPath)}
               class="inline-block py-1 transition hover:text-ice"
             >
               {item.label}
@@ -54,7 +54,7 @@ const currentPath = Astro.url.pathname;
       <div class="-my-1 flex gap-6">
         <a
           href={url('/privacidade/')}
-          aria-current={isCurrentPage('/privacidade/', currentPath) ? 'page' : undefined}
+          aria-current={getCurrentState('/privacidade/', currentPath)}
           class="inline-block py-1 transition hover:text-ice"
         >
           Privacidade

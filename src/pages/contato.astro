@@ -1,0 +1,40 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Container from '../components/layout/Container.astro';
+import Section from '../components/layout/Section.astro';
+import Breadcrumbs from '../components/layout/Breadcrumbs.astro';
+import PageHeader from '../components/layout/PageHeader.astro';
+import SectionHeading from '../components/ui/SectionHeading.astro';
+import ContactChannels from '../components/ContactChannels.astro';
+import ContactForm from '../components/ContactForm.astro';
+import ProcessSteps from '../components/ProcessSteps.astro';
+---
+
+<BaseLayout
+  title="Contato"
+  description="Fale com a 55 Tech pelo WhatsApp ou pelo formulário. Conte o que você precisa: a primeira conversa é sem compromisso."
+>
+  <Container class="pb-20 pt-10 sm:pb-28">
+    <Breadcrumbs items={[{ label: 'Contato' }]} />
+    <div class="mt-8 grid gap-12 lg:grid-cols-2">
+      <div>
+        <PageHeader
+          eyebrow="Contato"
+          title="Vamos conversar sobre o seu projeto?"
+          description="Conte o que você precisa. A primeira conversa é sem compromisso."
+        />
+        <ContactChannels class="mt-8" />
+      </div>
+      <ContactForm />
+    </div>
+  </Container>
+
+  <Section tone="alt">
+    <SectionHeading
+      eyebrow="Depois do contato"
+      title="O que acontece em seguida."
+      description="Antes de qualquer contratação, você sabe exatamente o que será feito, em quanto tempo e por quanto."
+    />
+    <ProcessSteps limit={2} class="mt-12 max-w-3xl" />
+  </Section>
+</BaseLayout>

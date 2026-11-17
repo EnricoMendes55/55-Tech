@@ -1,0 +1,78 @@
+---
+// Estilo do texto longo vindo de Markdown (páginas de serviço, futuramente artigos e cases).
+// O HTML do Markdown não recebe classes, por isso os estilos ficam aqui, com os tokens da marca.
+interface Props {
+  class?: string;
+}
+
+const { class: className } = Astro.props;
+---
+
+<div class:list={['prose-content', className]}>
+  <slot />
+</div>
+
+<style>
+  .prose-content {
+    color: var(--color-muted);
+    font-size: 1.0625rem;
+    line-height: 1.75;
+  }
+  .prose-content :global(h2) {
+    margin-top: 2.75rem;
+    font-family: var(--font-display);
+    font-size: 1.5rem;
+    font-weight: 700;
+    line-height: 1.25;
+    color: var(--color-ice);
+  }
+  .prose-content :global(h2:first-child) {
+    margin-top: 0;
+  }
+  .prose-content :global(h3) {
+    margin-top: 2rem;
+    font-family: var(--font-display);
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: var(--color-ice);
+  }
+  .prose-content :global(p),
+  .prose-content :global(ul),
+  .prose-content :global(ol) {
+    margin-top: 1rem;
+  }
+  .prose-content :global(ul) {
+    list-style: none;
+    padding-left: 0;
+  }
+  .prose-content :global(ul > li) {
+    position: relative;
+    padding-left: 1.5rem;
+  }
+  .prose-content :global(ul > li + li) {
+    margin-top: 0.625rem;
+  }
+  .prose-content :global(ul > li)::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0.7em;
+    width: 0.5rem;
+    height: 0.5rem;
+    border-radius: 9999px;
+    background: var(--gradient-brand);
+  }
+  .prose-content :global(ol) {
+    list-style: decimal;
+    padding-left: 1.5rem;
+  }
+  .prose-content :global(strong) {
+    font-weight: 700;
+    color: var(--color-ice);
+  }
+  .prose-content :global(a) {
+    color: var(--color-cyan);
+    text-decoration: underline;
+    text-underline-offset: 4px;
+  }
+</style>

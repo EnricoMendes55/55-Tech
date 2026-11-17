@@ -1,0 +1,56 @@
+---
+// Trilha de navegação ("Início › Serviços › ...") com os dados estruturados BreadcrumbList.
+// O último item é a página atual e não leva link.
+import { url } from '../../utils/url';
+
+interface Crumb {
+  label: string;
+  /** Caminho sem o base path. Omitir no último item (página atual). */
+  path?: string;
+}
+
+interface Props {
+  items: Crumb[];
+}
+
+const { items } = Astro.props;
+const trail = [{ label: 'Início', path: '/' }, ...items];
+
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'BreadcrumbList',
+  itemListElement: trail.map((crumb, index) => ({
+    '@type': 'ListItem',
+    position: index + 1,
+    name: crumb.label,
+    // Astro.url.pathname já inclui o base path; os demais itens passam por url().
+    item: new URL(crumb.path ? url(crumb.path) : Astro.url.pathname, Astro.site).href,
+  })),
+};
+---
+
+<nav aria-label="Trilha de navegação">
+  <ol class="flex flex-wrap items-center gap-x-2 gap-y-1 font-mono text-xs text-muted">
+    {trail.map((crumb, index) => {
+      const isLast = index === trail.length - 1;
+      return (
+        <li class="flex items-center gap-2">
+          {isLast ? (
+            <span aria-current="page" class="text-ice">
+              {crumb.label}
+            </span>
+          ) : (
+            <>
+              <a href={url(crumb.path)} class="inline-block py-1 transition hover:text-ice">
+                {crumb.label}
+              </a>
+              <span aria-hidden="true">›</span>
+            </>
+          )}
+        </li>
+      );
+    })}
+  </ol>
+</nav>
+
+<script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />

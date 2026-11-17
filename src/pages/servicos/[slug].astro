@@ -1,0 +1,109 @@
+---
+// Uma página por arquivo de src/content/services. O nome do arquivo é a URL.
+import { render } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Container from '../../components/layout/Container.astro';
+import Section from '../../components/layout/Section.astro';
+import Breadcrumbs from '../../components/layout/Breadcrumbs.astro';
+import PageHeader from '../../components/layout/PageHeader.astro';
+import Prose from '../../components/layout/Prose.astro';
+import Card from '../../components/ui/Card.astro';
+import Button from '../../components/ui/Button.astro';
+import SectionHeading from '../../components/ui/SectionHeading.astro';
+import ServiceCard from '../../components/ServiceCard.astro';
+import { site } from '../../data/site';
+import { getContactAbout } from '../../utils/contact';
+import { getAuditOffer, getServices, type ServiceEntry } from '../../utils/services';
+import { url } from '../../utils/url';
+
+export async function getStaticPaths() {
+  const entries = [...(await getServices()), await getAuditOffer()];
+  return entries.map((entry) => ({ params: { slug: entry.id }, props: { entry } }));
+}
+
+interface Props {
+  entry: ServiceEntry;
+}
+
+const { entry } = Astro.props;
+const { kind, number, title, summary, goal, seoDescription, deliverables } = entry.data;
+const { Content } = await render(entry);
+
+const isAudit = kind === 'audit';
+const contact = getContactAbout(isAudit ? `a ${title}` : `o serviço de ${title}`);
+const otherServices = (await getServices()).filter((service) => service.id !== entry.id);
+
+const serviceJsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'Service',
+  name: title,
+  description: seoDescription,
+  url: new URL(Astro.url.pathname, Astro.site).href,
+  provider: {
+    '@type': 'Organization',
+    name: site.name,
+    url: new URL(url('/'), Astro.site).href,
+  },
+};
+---
+
+<BaseLayout title={title} description={seoDescription} structuredData={[serviceJsonLd]}>
+  <Container class="pb-20 pt-10 sm:pb-28">
+    <Breadcrumbs items={[{ label: 'Serviços', path: '/servicos/' }, { label: title }]} />
+    <div class="mt-8">
+      <PageHeader
+        eyebrow={isAudit ? 'Por onde começar' : `Serviço ${number}`}
+        title={title}
+        description={summary}
+      />
+    </div>
+
+    <div class="mt-14 grid gap-12 lg:grid-cols-[minmax(0,1fr)_20rem] lg:gap-16">
+      <Prose class="max-w-reading">
+        <Content />
+      </Prose>
+
+      <aside class="lg:sticky lg:top-28 lg:self-start">
+        <Card class="p-6">
+          <p class="font-mono text-xs uppercase tracking-widest text-lavender">Objetivo</p>
+          <p class="mt-2 leading-relaxed text-ice">{goal}</p>
+          {deliverables.length > 0 && (
+            <ul class="mt-5 space-y-1 border-t border-surface pt-5 text-sm text-ice">
+              {deliverables.map((deliverable) => (
+                <li>+ {deliverable}</li>
+              ))}
+            </ul>
+          )}
+          <Button href={contact.href} event={contact.event} external class="mt-6 w-full">
+            {contact.label}
+          </Button>
+          <p class="mt-4 text-center text-sm text-muted">
+            ou use o{' '}
+            <a href={url('/contato/')} class="text-ice underline underline-offset-4">
+              formulário de contato
+            </a>
+          </p>
+        </Card>
+      </aside>
+    </div>
+  </Container>
+
+  <Section tone="alt">
+    <SectionHeading
+      eyebrow={isAudit ? 'Serviços' : 'Outros serviços'}
+      title={isAudit ? 'O que a 55 Tech faz.' : 'Veja também.'}
+    />
+    <ul
+      class:list={[
+        'mt-12 grid gap-5 md:grid-cols-2',
+        otherServices.length === 3 && 'lg:grid-cols-3',
+      ]}
+    >
+      {otherServices.map((service) => (
+        <li>
+          <ServiceCard service={service} />
+        </li>
+      ))}
+    </ul>
+  </Section>
+</BaseLayout>

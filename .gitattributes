@@ -1,0 +1,8 @@
+# Finais de linha sempre LF no repositório e na pasta de trabalho, em qualquer sistema.
+# Evita diffs falsos entre Windows e o GitHub Actions (Linux) e combina com o padrão do Prettier.
+* text=auto eol=lf
+
+*.png binary
+*.webp binary
+*.jpg binary
+*.woff2 binary

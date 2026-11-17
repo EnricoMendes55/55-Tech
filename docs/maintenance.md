@@ -27,14 +27,30 @@ a etiqueta "Em desenvolvimento" some e aparece "Ver projeto".
 
 **Etapas do processo e formatos de trabalho** — `src/data/process.ts`.
 
-**Itens do menu** — `navigation` em `src/data/site.ts`. O `anchor` é a âncora pública
-(`#servicos`); mudar quebra links já compartilhados.
+**Itens do menu** — `navigation` em `src/data/site.ts`. Cada item tem `label` e `path`:
+âncora da página inicial (`'/#servicos'`) ou página (`'/servicos/'`). O caminho é URL pública;
+mudar quebra links já compartilhados. Header e rodapé leem a mesma lista.
 
 **Ordem das seções da página inicial** — `src/pages/index.astro`.
 
 **Criar uma página** — `src/pages/nome.astro` usando o `BaseLayout` com `title` e
 `description` (modelo: `privacidade.astro`). Fica em `/55-Tech/nome/`.
-Links para ela: `url('/nome/')`.
+Links para ela: `url('/nome/')`. Estrutura sugerida:
+
+```astro
+<BaseLayout title="Título" description="Descrição única da página.">
+  <Container as="article" width="reading" class="py-20">
+    <PageHeader eyebrow="Etiqueta" title="Título da página" />
+    ...
+  </Container>
+  <Section id="ancora" tone="alt">
+    ...
+  </Section>
+</BaseLayout>
+```
+
+Use `Section`, `Container`, `Card` e `Eyebrow` em vez de repetir as classes de largura,
+espaçamento e borda.
 
 **Medir um clique** — adicione `data-event="event_name"` (snake_case, inglês) ao link ou botão.
 O evento só é enviado se o GA4 estiver ativo e o visitante tiver aceitado.

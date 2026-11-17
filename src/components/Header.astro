@@ -2,13 +2,16 @@
 import { Image } from 'astro:assets';
 import logo from '../assets/logo-55.png';
 import Button from './ui/Button.astro';
+import Container from './layout/Container.astro';
 import { navigation } from '../data/site';
 import { primaryContact } from '../utils/contact';
-import { url } from '../utils/url';
+import { isCurrentPage, url } from '../utils/url';
+
+const currentPath = Astro.url.pathname;
 ---
 
 <header class="sticky top-0 z-40 border-b border-surface/60 bg-deep-black/85 backdrop-blur">
-  <div class="mx-auto flex max-w-6xl items-center justify-between gap-6 px-5 py-3 sm:px-8">
+  <Container class="flex items-center justify-between gap-6 py-3">
     <a href={url('/')} class="flex items-center gap-3" aria-label="55 Tech, página inicial">
       <Image src={logo} alt="" width={124} class="h-9 w-auto" loading="eager" />
       <span class="font-display text-sm font-medium tracking-[0.35em] text-ice">TECH</span>
@@ -18,7 +21,11 @@ import { url } from '../utils/url';
       <ul class="flex items-center gap-7 text-sm font-medium text-muted">
         {navigation.map((item) => (
           <li>
-            <a href={url(`/#${item.anchor}`)} class="transition hover:text-ice">
+            <a
+              href={url(item.path)}
+              aria-current={isCurrentPage(item.path, currentPath) ? 'page' : undefined}
+              class="transition hover:text-ice aria-[current=page]:text-ice"
+            >
               {item.label}
             </a>
           </li>
@@ -60,22 +67,26 @@ import { url } from '../utils/url';
         </svg>
       </button>
     </div>
-  </div>
+  </Container>
 
   <nav
     id="mobile-menu"
     aria-label="Principal (celular)"
     class="hidden border-t border-surface/60 md:hidden"
   >
-    <ul class="mx-auto max-w-6xl px-5 py-3 sm:px-8">
+    <Container as="ul" class="py-3">
       {navigation.map((item) => (
         <li>
-          <a href={url(`/#${item.anchor}`)} class="block py-3 font-medium text-ice">
+          <a
+            href={url(item.path)}
+            aria-current={isCurrentPage(item.path, currentPath) ? 'page' : undefined}
+            class="block py-3 font-medium text-ice"
+          >
             {item.label}
           </a>
         </li>
       ))}
-    </ul>
+    </Container>
   </nav>
 </header>
 
@@ -90,7 +101,9 @@ import { url } from '../utils/url';
     button?.setAttribute('aria-label', open ? 'Fechar menu' : 'Abrir menu');
   }
 
-  button?.addEventListener('click', () => setOpen(button.getAttribute('aria-expanded') !== 'true'));
+  const isOpen = () => button?.getAttribute('aria-expanded') === 'true';
+
+  button?.addEventListener('click', () => setOpen(!isOpen()));
   panel?.addEventListener('click', (event) => {
     if ((event.target as HTMLElement).closest('a')) setOpen(false);
   });

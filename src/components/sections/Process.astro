@@ -1,9 +1,11 @@
 ---
+import Section from '../layout/Section.astro';
 import SectionHeading from '../ui/SectionHeading.astro';
+import Card from '../ui/Card.astro';
 import { steps, workFormats } from '../../data/process';
 ---
 
-<section id="processo" class="mx-auto max-w-6xl px-5 py-20 sm:px-8 sm:py-28">
+<Section id="processo">
   <SectionHeading
     eyebrow="Processo"
     title="Como funciona, da primeira conversa à entrega."
@@ -23,10 +25,10 @@ import { steps, workFormats } from '../../data/process';
   <h3 class="mt-20 font-display text-2xl font-bold">Formatos de trabalho</h3>
   <ul class="mt-6 grid gap-5 md:grid-cols-3">
     {workFormats.map((format) => (
-      <li class="rounded-2xl border border-surface bg-midnight p-6">
+      <Card as="li" class="p-6">
         <h4 class="font-display text-lg font-bold">{format.title}</h4>
         <p class="mt-2 text-sm leading-relaxed text-muted">{format.description}</p>
-      </li>
+      </Card>
     ))}
   </ul>
-</section>
+</Section>

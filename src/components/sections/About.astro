@@ -1,4 +1,5 @@
 ---
+import Section from '../layout/Section.astro';
 import SectionHeading from '../ui/SectionHeading.astro';
 
 const differentiators = [
@@ -22,27 +23,25 @@ const differentiators = [
 ];
 ---
 
-<section id="sobre" class="border-y border-surface/60 bg-midnight/40">
-  <div class="mx-auto grid max-w-6xl gap-12 px-5 py-20 sm:px-8 sm:py-28 lg:grid-cols-2">
-    <div>
-      <SectionHeading eyebrow="Sobre a 55 Tech" title="Tecnologia a serviço do negócio." />
-      <p class="mt-6 text-lg leading-relaxed text-muted">
-        A 55 Tech une estratégia, design e desenvolvimento para que cada entrega resolva um problema
-        real da sua empresa.
-      </p>
-      <p class="mt-4 text-lg leading-relaxed text-muted">
-        Fazemos bem um conjunto definido de coisas, com atenção de perto em cada projeto e conversa
-        franca sobre o que a tecnologia pode entregar.
-      </p>
-    </div>
-
-    <ul class="grid gap-x-8 gap-y-8 sm:grid-cols-2">
-      {differentiators.map((item) => (
-        <li class="border-l-2 border-violet pl-5">
-          <h3 class="font-display text-lg font-bold">{item.title}</h3>
-          <p class="mt-2 text-sm leading-relaxed text-muted">{item.description}</p>
-        </li>
-      ))}
-    </ul>
+<Section id="sobre" tone="alt" class="grid gap-12 lg:grid-cols-2">
+  <div>
+    <SectionHeading eyebrow="Sobre a 55 Tech" title="Tecnologia a serviço do negócio." />
+    <p class="mt-6 text-lg leading-relaxed text-muted">
+      A 55 Tech une estratégia, design e desenvolvimento para que cada entrega resolva um problema
+      real da sua empresa.
+    </p>
+    <p class="mt-4 text-lg leading-relaxed text-muted">
+      Fazemos bem um conjunto definido de coisas, com atenção de perto em cada projeto e conversa
+      franca sobre o que a tecnologia pode entregar.
+    </p>
   </div>
-</section>
+
+  <ul class="grid gap-x-8 gap-y-8 sm:grid-cols-2">
+    {differentiators.map((item) => (
+      <li class="border-l-2 border-violet pl-5">
+        <h3 class="font-display text-lg font-bold">{item.title}</h3>
+        <p class="mt-2 text-sm leading-relaxed text-muted">{item.description}</p>
+      </li>
+    ))}
+  </ul>
+</Section>

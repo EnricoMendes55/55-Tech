@@ -1,0 +1,23 @@
+---
+// Largura máxima e margens laterais padrão do site.
+// `width="reading"` estreita a coluna para textos longos (artigos, políticas).
+import type { HTMLAttributes } from 'astro/types';
+
+interface Props extends HTMLAttributes<'div'> {
+  as?: 'div' | 'section' | 'article' | 'ul';
+  width?: 'content' | 'reading';
+}
+
+const { as: Tag = 'div', width = 'content', class: className, ...attrs } = Astro.props;
+---
+
+<Tag
+  class:list={[
+    'mx-auto px-5 sm:px-8',
+    width === 'reading' ? 'max-w-reading' : 'max-w-content',
+    className,
+  ]}
+  {...attrs}
+>
+  <slot />
+</Tag>

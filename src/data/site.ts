@@ -25,12 +25,19 @@ export const site: Site = {
   ga4Id: '',
 };
 
-// `anchor` é o id da seção na página inicial e faz parte da URL pública (ex.: /#servicos),
-// por isso continua em português.
-export const navigation = [
-  { label: 'Serviços', anchor: 'servicos' },
-  { label: 'Projetos', anchor: 'projetos' },
-  { label: 'Processo', anchor: 'processo' },
-  { label: 'Sobre', anchor: 'sobre' },
-  { label: 'Contato', anchor: 'contato' },
+interface NavigationItem {
+  label: string;
+  /**
+   * Caminho sem o base path. Âncora na página inicial ('/#servicos') ou página ('/servicos/').
+   * Faz parte da URL pública, por isso continua em português.
+   */
+  path: string;
+}
+
+export const navigation: NavigationItem[] = [
+  { label: 'Serviços', path: '/#servicos' },
+  { label: 'Projetos', path: '/#projetos' },
+  { label: 'Processo', path: '/#processo' },
+  { label: 'Sobre', path: '/#sobre' },
+  { label: 'Contato', path: '/#contato' },
 ];

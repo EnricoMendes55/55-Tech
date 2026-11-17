@@ -1,15 +1,16 @@
 ---
 // Banner de consentimento. Só aparece quando existe um ID do GA4 em src/data/site.ts
 // e o visitante ainda não escolheu. Sem ID, o site não rastreia nada e o banner nunca é exibido.
+import Card from './ui/Card.astro';
 import { url } from '../utils/url';
 ---
 
-<div
+<Card
   id="consent-banner"
   role="region"
   aria-label="Consentimento de cookies"
   hidden
-  class="fixed inset-x-4 bottom-4 z-50 mx-auto max-w-xl rounded-2xl border border-surface bg-midnight p-5 shadow-2xl"
+  class="fixed inset-x-4 bottom-4 z-50 mx-auto max-w-xl p-5 shadow-2xl"
 >
   <p class="text-sm leading-relaxed text-muted">
     Usamos o Google Analytics para entender como o site é usado. Ele só é ativado se você aceitar.
@@ -35,7 +36,7 @@ import { url } from '../utils/url';
       Recusar
     </button>
   </div>
-</div>
+</Card>
 
 <script>
   import { site } from '../data/site';

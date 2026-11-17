@@ -1,0 +1,12 @@
+---
+// Etiqueta curta em fonte mono, acima de títulos ("Serviços", "Por onde começar").
+interface Props {
+  class?: string;
+}
+
+const { class: className } = Astro.props;
+---
+
+<p class:list={['font-mono text-xs uppercase tracking-[0.2em] text-cyan', className]}>
+  <slot />
+</p>

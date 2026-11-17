@@ -1,0 +1,15 @@
+---
+// Superfície padrão: fundo midnight, borda e cantos arredondados.
+// O espaçamento interno fica com quem usa (`class="p-6"`), porque varia entre os cards.
+import type { HTMLAttributes } from 'astro/types';
+
+interface Props extends HTMLAttributes<'div'> {
+  as?: 'div' | 'article' | 'li' | 'form';
+}
+
+const { as: Tag = 'div', class: className, ...attrs } = Astro.props;
+---
+
+<Tag class:list={['rounded-2xl border border-surface bg-midnight', className]} {...attrs}>
+  <slot />
+</Tag>

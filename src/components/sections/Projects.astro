@@ -1,23 +1,22 @@
 ---
+import Section from '../layout/Section.astro';
 import SectionHeading from '../ui/SectionHeading.astro';
 import ProjectCard from '../ProjectCard.astro';
 import { projects } from '../../data/projects';
 ---
 
-<section id="projetos" class="border-y border-surface/60 bg-midnight/40">
-  <div class="mx-auto max-w-6xl px-5 py-20 sm:px-8 sm:py-28">
-    <SectionHeading
-      eyebrow="Projetos & Experimentos"
-      title="O que estamos construindo."
-      description="Estamos preparando nossos primeiros estudos de caso: projetos conceituais e demonstrativos que mostram, na prática, como trabalhamos."
-    />
+<Section id="projetos" tone="alt">
+  <SectionHeading
+    eyebrow="Projetos & Experimentos"
+    title="O que estamos construindo."
+    description="Estamos preparando nossos primeiros estudos de caso: projetos conceituais e demonstrativos que mostram, na prática, como trabalhamos."
+  />
 
-    <ul class="mt-12 grid gap-5 md:grid-cols-3">
-      {projects.map((project) => (
-        <li>
-          <ProjectCard project={project} />
-        </li>
-      ))}
-    </ul>
-  </div>
-</section>
+  <ul class="mt-12 grid gap-5 md:grid-cols-3">
+    {projects.map((project) => (
+      <li>
+        <ProjectCard project={project} />
+      </li>
+    ))}
+  </ul>
+</Section>

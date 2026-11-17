@@ -1,0 +1,21 @@
+---
+// Seção de página: largura do Container e espaçamento vertical padrão.
+// `tone="alt"` aplica a faixa de fundo alternada, com bordas em cima e embaixo.
+// `class` vai para o Container interno (ex.: grid de duas colunas).
+import Container from './Container.astro';
+
+interface Props {
+  /** Âncora pública da seção (ex.: 'servicos'). Mudar quebra links já compartilhados. */
+  id?: string;
+  tone?: 'default' | 'alt';
+  class?: string;
+}
+
+const { id, tone = 'default', class: className } = Astro.props;
+---
+
+<section id={id} class:list={[tone === 'alt' && 'border-y border-surface/60 bg-midnight/40']}>
+  <Container class:list={['py-20 sm:py-28', className]}>
+    <slot />
+  </Container>
+</section>

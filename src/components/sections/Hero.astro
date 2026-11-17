@@ -1,5 +1,7 @@
 ---
 import Button from '../ui/Button.astro';
+import Eyebrow from '../ui/Eyebrow.astro';
+import Container from '../layout/Container.astro';
 import { site } from '../../data/site';
 import { primaryContact } from '../../utils/contact';
 import { url } from '../../utils/url';
@@ -13,8 +15,8 @@ import { url } from '../../utils/url';
     <div class="grid-floor"></div>
   </div>
 
-  <div class="relative mx-auto max-w-6xl px-5 pb-32 pt-20 sm:px-8 sm:pb-44 sm:pt-28">
-    <p class="font-mono text-xs uppercase tracking-[0.2em] text-cyan">Soluções digitais</p>
+  <Container class="relative pb-32 pt-20 sm:pb-44 sm:pt-28">
+    <Eyebrow>Soluções digitais</Eyebrow>
     <h1 class="mt-5 max-w-3xl font-display text-4xl font-bold leading-[1.05] tracking-tight sm:text-6xl">
       Tecnologia que faz seu negócio <span class="text-brand-gradient">evoluir.</span>
     </h1>
@@ -34,7 +36,7 @@ import { url } from '../../utils/url';
       <li>Design</li>
       <li>Desenvolvimento</li>
     </ul>
-  </div>
+  </Container>
 </section>
 
 <style>

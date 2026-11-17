@@ -1,5 +1,7 @@
 ---
+import Section from '../layout/Section.astro';
 import SectionHeading from '../ui/SectionHeading.astro';
+import Card from '../ui/Card.astro';
 import { site } from '../../data/site';
 import { services, auditOffer } from '../../data/services';
 import { primaryContact, instagramUrl } from '../../utils/contact';
@@ -9,10 +11,7 @@ const fieldClass =
   'mt-2 w-full rounded-xl border border-surface bg-deep-black px-4 py-3 text-ice placeholder:text-muted/60';
 ---
 
-<section
-  id="contato"
-  class="mx-auto grid max-w-6xl gap-12 px-5 py-20 sm:px-8 sm:py-28 lg:grid-cols-2"
->
+<Section id="contato" class="grid gap-12 lg:grid-cols-2">
   <div>
     <SectionHeading
       eyebrow="Contato"
@@ -62,7 +61,7 @@ const fieldClass =
   {
     /* O formulário monta a mensagem e abre o WhatsApp, por isso só existe quando há número em site.ts. */
     site.whatsapp && (
-      <form id="contact-form" class="rounded-2xl border border-surface bg-midnight p-6 sm:p-8">
+      <Card as="form" id="contact-form" class="p-6 sm:p-8">
         <div class="grid gap-5 sm:grid-cols-2">
           <label class="block text-sm font-medium">
             Nome
@@ -94,10 +93,10 @@ const fieldClass =
         <p class="mt-3 text-center text-xs text-muted">
           Ao enviar, o WhatsApp abre com a mensagem pronta. Nada é armazenado neste site.
         </p>
-      </form>
+      </Card>
     )
   }
-</section>
+</Section>
 
 <script>
   import { getWhatsAppUrl } from '../../utils/contact';

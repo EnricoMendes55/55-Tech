@@ -1,9 +1,9 @@
 // Informações gerais do site. Tudo que é "dado da empresa" fica aqui.
 
 interface Site {
-  nome: string;
-  slogan: string;
-  descricao: string;
+  name: string;
+  tagline: string;
+  description: string;
   /** Só dígitos, com DDI e DDD. Ex.: '5551999999999'. Vazio = botões usam o Instagram e o formulário some. */
   whatsapp: string;
   /** Vazio = o e-mail não aparece no site. */
@@ -15,9 +15,9 @@ interface Site {
 }
 
 export const site: Site = {
-  nome: '55 Tech',
-  slogan: 'Tecnologia que faz seu negócio evoluir.',
-  descricao:
+  name: '55 Tech',
+  tagline: 'Tecnologia que faz seu negócio evoluir.',
+  description:
     'Estratégia, design e desenvolvimento para empresas que querem crescer com soluções digitais melhores.',
   whatsapp: '5548991777530',
   email: '',
@@ -25,10 +25,12 @@ export const site: Site = {
   ga4Id: '',
 };
 
-export const menu = [
-  { rotulo: 'Serviços', ancora: 'servicos' },
-  { rotulo: 'Projetos', ancora: 'projetos' },
-  { rotulo: 'Processo', ancora: 'processo' },
-  { rotulo: 'Sobre', ancora: 'sobre' },
-  { rotulo: 'Contato', ancora: 'contato' },
+// `anchor` é o id da seção na página inicial e faz parte da URL pública (ex.: /#servicos),
+// por isso continua em português.
+export const navigation = [
+  { label: 'Serviços', anchor: 'servicos' },
+  { label: 'Projetos', anchor: 'projetos' },
+  { label: 'Processo', anchor: 'processo' },
+  { label: 'Sobre', anchor: 'sobre' },
+  { label: 'Contato', anchor: 'contato' },
 ];

@@ -1,12 +1,12 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
 import { site } from '../data/site';
-import { linkInstagram } from '../utils/contato';
+import { instagramUrl } from '../utils/contact';
 ---
 
 <BaseLayout
-  titulo="Privacidade"
-  descricao="Como o site da 55 Tech trata os seus dados: o que é coletado, quando e como mudar sua escolha."
+  title="Privacidade"
+  description="Como o site da 55 Tech trata os seus dados: o que é coletado, quando e como mudar sua escolha."
 >
   <article class="mx-auto max-w-3xl px-5 py-20 sm:px-8">
     <p class="font-mono text-xs uppercase tracking-[0.2em] text-cyan">Privacidade</p>
@@ -62,7 +62,7 @@ import { linkInstagram } from '../utils/contato';
           )}
           pelo Instagram
           <a
-            href={linkInstagram}
+            href={instagramUrl}
             class="text-ice underline underline-offset-4"
             target="_blank"
             rel="noopener noreferrer"

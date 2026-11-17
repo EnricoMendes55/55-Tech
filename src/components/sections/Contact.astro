@@ -1,0 +1,136 @@
+---
+import SectionHeading from '../ui/SectionHeading.astro';
+import { site } from '../../data/site';
+import { services, auditOffer } from '../../data/services';
+import { primaryContact, instagramUrl } from '../../utils/contact';
+
+const interests = [...services.map((service) => service.title), auditOffer.title, 'Ainda não sei'];
+const fieldClass =
+  'mt-2 w-full rounded-xl border border-surface bg-deep-black px-4 py-3 text-ice placeholder:text-muted/60';
+---
+
+<section
+  id="contato"
+  class="mx-auto grid max-w-6xl gap-12 px-5 py-20 sm:px-8 sm:py-28 lg:grid-cols-2"
+>
+  <div>
+    <SectionHeading
+      eyebrow="Contato"
+      title="Vamos conversar sobre o seu projeto?"
+      description="Conte o que você precisa. A primeira conversa é sem compromisso."
+    />
+
+    <ul class="mt-8 space-y-4">
+      <li>
+        <a
+          href={primaryContact.href}
+          data-event={primaryContact.event}
+          target="_blank"
+          rel="noopener noreferrer"
+          class="font-display text-xl font-bold text-brand-gradient"
+        >
+          {primaryContact.label} →
+        </a>
+      </li>
+      {site.whatsapp && (
+        <li>
+          <a
+            href={instagramUrl}
+            data-event="instagram_click"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="text-muted transition hover:text-ice"
+          >
+            Instagram: @{site.instagram}
+          </a>
+        </li>
+      )}
+      {site.email && (
+        <li>
+          <a
+            href={`mailto:${site.email}`}
+            data-event="email_click"
+            class="text-muted transition hover:text-ice"
+          >
+            {site.email}
+          </a>
+        </li>
+      )}
+    </ul>
+  </div>
+
+  {
+    /* O formulário monta a mensagem e abre o WhatsApp, por isso só existe quando há número em site.ts. */
+    site.whatsapp && (
+      <form id="contact-form" class="rounded-2xl border border-surface bg-midnight p-6 sm:p-8">
+        <div class="grid gap-5 sm:grid-cols-2">
+          <label class="block text-sm font-medium">
+            Nome
+            <input type="text" name="name" required autocomplete="name" class={fieldClass} />
+          </label>
+          <label class="block text-sm font-medium">
+            Empresa <span class="font-normal text-muted">(opcional)</span>
+            <input type="text" name="company" autocomplete="organization" class={fieldClass} />
+          </label>
+        </div>
+        <label class="mt-5 block text-sm font-medium">
+          Interesse
+          <select name="interest" class={fieldClass}>
+            {interests.map((interest) => (
+              <option>{interest}</option>
+            ))}
+          </select>
+        </label>
+        <label class="mt-5 block text-sm font-medium">
+          Mensagem
+          <textarea name="message" required rows="4" class={fieldClass} />
+        </label>
+        <button
+          type="submit"
+          class="bg-brand-gradient mt-6 w-full rounded-full px-6 py-3 text-sm font-bold text-deep-black transition hover:brightness-110"
+        >
+          Enviar pelo WhatsApp
+        </button>
+        <p class="mt-3 text-center text-xs text-muted">
+          Ao enviar, o WhatsApp abre com a mensagem pronta. Nada é armazenado neste site.
+        </p>
+      </form>
+    )
+  }
+</section>
+
+<script>
+  import { getWhatsAppUrl } from '../../utils/contact';
+  import { trackEvent } from '../../scripts/analytics';
+
+  const form = document.querySelector<HTMLFormElement>('#contact-form');
+
+  // Limpa o erro personalizado assim que a pessoa volta a digitar.
+  form?.addEventListener('input', (event) => {
+    (event.target as HTMLInputElement).setCustomValidity('');
+  });
+
+  form?.addEventListener('submit', (event) => {
+    event.preventDefault();
+    const data = new FormData(form);
+    const field = (name: string) => String(data.get(name) ?? '').trim();
+
+    // `required` aceita campos só com espaços; aqui eles contam como vazios.
+    for (const name of ['name', 'message']) {
+      const input = form.elements.namedItem(name) as HTMLInputElement | HTMLTextAreaElement;
+      input.setCustomValidity(field(name) ? '' : 'Preencha este campo.');
+    }
+    if (!form.reportValidity()) return;
+
+    const company = field('company');
+    const message = [
+      `Olá! Sou ${field('name')}${company ? `, da ${company}` : ''}.`,
+      `Interesse: ${field('interest')}`,
+      '',
+      field('message'),
+    ].join('\n');
+
+    window.open(getWhatsAppUrl(message), '_blank', 'noopener');
+    trackEvent('contact_form_submit', { interest: field('interest') });
+  });
+</script>

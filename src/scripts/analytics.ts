@@ -9,30 +9,32 @@ declare global {
   }
 }
 
-type Escolha = 'aceito' | 'recusado';
-const CHAVE = 'consentimento-analytics';
-let carregado = false;
+// A chave e os valores abaixo ficam gravados no navegador dos visitantes.
+// Não renomear: mudar faria a escolha já feita ser esquecida (ver CLAUDE.md, "Dados persistidos").
+type ConsentChoice = 'aceito' | 'recusado';
+const STORAGE_KEY = 'consentimento-analytics';
+let loaded = false;
 
-export function lerEscolha(): Escolha | null {
+export function readConsent(): ConsentChoice | null {
   try {
-    const valor = localStorage.getItem(CHAVE);
-    return valor === 'aceito' || valor === 'recusado' ? valor : null;
+    const value = localStorage.getItem(STORAGE_KEY);
+    return value === 'aceito' || value === 'recusado' ? value : null;
   } catch {
     return null;
   }
 }
 
-export function salvarEscolha(escolha: Escolha): void {
+export function saveConsent(choice: ConsentChoice): void {
   try {
-    localStorage.setItem(CHAVE, escolha);
+    localStorage.setItem(STORAGE_KEY, choice);
   } catch {
     // Sem acesso ao armazenamento (navegação privada): a escolha vale só para esta visita.
   }
 }
 
-export function carregarGA4(): void {
-  if (carregado || !site.ga4Id) return;
-  carregado = true;
+export function loadGA4(): void {
+  if (loaded || !site.ga4Id) return;
+  loaded = true;
 
   window.dataLayer = window.dataLayer || [];
   window.gtag = function () {
@@ -49,6 +51,6 @@ export function carregarGA4(): void {
 }
 
 /** Envia um evento de conversão. Não faz nada se o GA4 não estiver carregado. */
-export function registrarEvento(nome: string, parametros: Record<string, string> = {}): void {
-  if (carregado) window.gtag('event', nome, parametros);
+export function trackEvent(name: string, params: Record<string, string> = {}): void {
+  if (loaded) window.gtag('event', name, params);
 }

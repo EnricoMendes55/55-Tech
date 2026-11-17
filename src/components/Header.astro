@@ -2,8 +2,8 @@
 import { Image } from 'astro:assets';
 import logo from '../assets/logo-55.png';
 import Button from './ui/Button.astro';
-import { menu } from '../data/site';
-import { contatoPrincipal } from '../utils/contato';
+import { navigation } from '../data/site';
+import { primaryContact } from '../utils/contact';
 import { url } from '../utils/url';
 ---
 
@@ -16,10 +16,10 @@ import { url } from '../utils/url';
 
     <nav aria-label="Principal" class="hidden md:block">
       <ul class="flex items-center gap-7 text-sm font-medium text-muted">
-        {menu.map((item) => (
+        {navigation.map((item) => (
           <li>
-            <a href={url(`/#${item.ancora}`)} class="transition hover:text-ice">
-              {item.rotulo}
+            <a href={url(`/#${item.anchor}`)} class="transition hover:text-ice">
+              {item.label}
             </a>
           </li>
         ))}
@@ -29,21 +29,21 @@ import { url } from '../utils/url';
     <div class="flex items-center gap-3">
       <div class="hidden sm:block">
         <Button
-          href={contatoPrincipal.href}
-          evento={contatoPrincipal.evento}
-          externo
+          href={primaryContact.href}
+          event={primaryContact.event}
+          external
           class="px-5 py-2.5"
         >
-          {contatoPrincipal.rotulo}
+          {primaryContact.label}
         </Button>
       </div>
 
       <button
-        id="botao-menu"
+        id="menu-button"
         type="button"
         class="rounded-lg border border-surface p-2.5 md:hidden"
         aria-expanded="false"
-        aria-controls="menu-mobile"
+        aria-controls="mobile-menu"
         aria-label="Abrir menu"
       >
         <svg
@@ -63,15 +63,15 @@ import { url } from '../utils/url';
   </div>
 
   <nav
-    id="menu-mobile"
+    id="mobile-menu"
     aria-label="Principal (celular)"
     class="hidden border-t border-surface/60 md:hidden"
   >
     <ul class="mx-auto max-w-6xl px-5 py-3 sm:px-8">
-      {menu.map((item) => (
+      {navigation.map((item) => (
         <li>
-          <a href={url(`/#${item.ancora}`)} class="block py-3 font-medium text-ice">
-            {item.rotulo}
+          <a href={url(`/#${item.anchor}`)} class="block py-3 font-medium text-ice">
+            {item.label}
           </a>
         </li>
       ))}
@@ -81,17 +81,17 @@ import { url } from '../utils/url';
 
 <script>
   // Abre e fecha o menu no celular.
-  const botao = document.querySelector<HTMLButtonElement>('#botao-menu');
-  const painel = document.querySelector<HTMLElement>('#menu-mobile');
+  const button = document.querySelector<HTMLButtonElement>('#menu-button');
+  const panel = document.querySelector<HTMLElement>('#mobile-menu');
 
-  function alternar(aberto: boolean) {
-    painel?.classList.toggle('hidden', !aberto);
-    botao?.setAttribute('aria-expanded', String(aberto));
-    botao?.setAttribute('aria-label', aberto ? 'Fechar menu' : 'Abrir menu');
+  function setOpen(open: boolean) {
+    panel?.classList.toggle('hidden', !open);
+    button?.setAttribute('aria-expanded', String(open));
+    button?.setAttribute('aria-label', open ? 'Fechar menu' : 'Abrir menu');
   }
 
-  botao?.addEventListener('click', () => alternar(botao.getAttribute('aria-expanded') !== 'true'));
-  painel?.addEventListener('click', (evento) => {
-    if ((evento.target as HTMLElement).closest('a')) alternar(false);
+  button?.addEventListener('click', () => setOpen(button.getAttribute('aria-expanded') !== 'true'));
+  panel?.addEventListener('click', (event) => {
+    if ((event.target as HTMLElement).closest('a')) setOpen(false);
   });
 </script>

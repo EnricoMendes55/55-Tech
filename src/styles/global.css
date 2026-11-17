@@ -21,7 +21,7 @@
 }
 
 :root {
-  --gradiente-marca: linear-gradient(110deg, #21d4fd 0%, #7856ff 50%, #f747b9 100%);
+  --gradient-brand: linear-gradient(110deg, #21d4fd 0%, #7856ff 50%, #f747b9 100%);
   color-scheme: dark;
 }
 
@@ -43,23 +43,23 @@ body {
 }
 
 /* Utilitários da marca */
-@utility bg-marca {
-  background-image: var(--gradiente-marca);
+@utility bg-brand-gradient {
+  background-image: var(--gradient-brand);
 }
 
-@utility text-marca {
-  background-image: var(--gradiente-marca);
+@utility text-brand-gradient {
+  background-image: var(--gradient-brand);
   background-clip: text;
   -webkit-background-clip: text;
   color: transparent;
 }
 
 /* Borda fina em gradiente, usada nos cards em destaque */
-@utility borda-marca {
+@utility border-brand-gradient {
   border: 1px solid transparent;
   background:
     linear-gradient(var(--color-midnight), var(--color-midnight)) padding-box,
-    var(--gradiente-marca) border-box;
+    var(--gradient-brand) border-box;
 }
 
 @media (prefers-reduced-motion: reduce) {

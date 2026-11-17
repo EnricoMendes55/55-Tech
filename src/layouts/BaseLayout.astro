@@ -5,31 +5,31 @@ import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
 import ConsentBanner from '../components/ConsentBanner.astro';
 import { site } from '../data/site';
-import { linkInstagram } from '../utils/contato';
+import { instagramUrl } from '../utils/contact';
 import { url } from '../utils/url';
 
 interface Props {
-  titulo?: string;
-  descricao?: string;
+  title?: string;
+  description?: string;
   /** true em páginas que não devem aparecer no Google (ex.: 404). */
-  naoIndexar?: boolean;
+  noIndex?: boolean;
 }
 
-const { titulo, descricao = site.descricao, naoIndexar = false } = Astro.props;
+const { title, description = site.description, noIndex = false } = Astro.props;
 
-const tituloCompleto = titulo ? `${titulo} | ${site.nome}` : `${site.nome} | ${site.slogan}`;
-const canonica = new URL(Astro.url.pathname, Astro.site);
-const imagemOg = new URL(url('/og.png'), Astro.site);
+const fullTitle = title ? `${title} | ${site.name}` : `${site.name} | ${site.tagline}`;
+const canonicalUrl = new URL(Astro.url.pathname, Astro.site);
+const ogImage = new URL(url('/og.png'), Astro.site);
 
 // Dados estruturados: ajudam buscadores a entender quem é a empresa.
 const jsonLd = {
   '@context': 'https://schema.org',
   '@type': 'Organization',
-  name: site.nome,
-  description: site.descricao,
+  name: site.name,
+  description: site.description,
   url: new URL(url('/'), Astro.site).href,
   logo: new URL(url('/favicon.png'), Astro.site).href,
-  sameAs: [linkInstagram],
+  sameAs: [instagramUrl],
 };
 ---
 
@@ -38,33 +38,33 @@ const jsonLd = {
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>{tituloCompleto}</title>
-    <meta name="description" content={descricao} />
-    <link rel="canonical" href={canonica} />
-    {naoIndexar && <meta name="robots" content="noindex" />}
+    <title>{fullTitle}</title>
+    <meta name="description" content={description} />
+    <link rel="canonical" href={canonicalUrl} />
+    {noIndex && <meta name="robots" content="noindex" />}
     <link rel="icon" type="image/png" href={url('/favicon.png')} />
     <meta name="theme-color" content="#090a14" />
 
     <meta property="og:type" content="website" />
     <meta property="og:locale" content="pt_BR" />
-    <meta property="og:site_name" content={site.nome} />
-    <meta property="og:title" content={tituloCompleto} />
-    <meta property="og:description" content={descricao} />
-    <meta property="og:url" content={canonica} />
-    <meta property="og:image" content={imagemOg} />
+    <meta property="og:site_name" content={site.name} />
+    <meta property="og:title" content={fullTitle} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonicalUrl} />
+    <meta property="og:image" content={ogImage} />
     <meta name="twitter:card" content="summary_large_image" />
 
     <script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />
   </head>
   <body class="antialiased">
     <a
-      href="#conteudo"
+      href="#main-content"
       class="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-50 focus:rounded-lg focus:bg-ice focus:px-4 focus:py-2 focus:text-deep-black"
     >
       Pular para o conteúdo
     </a>
     <Header />
-    <main id="conteudo">
+    <main id="main-content">
       <slot />
     </main>
     <Footer />

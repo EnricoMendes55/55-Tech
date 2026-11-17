@@ -1,20 +1,20 @@
 ---
-import type { Servico } from '../data/servicos';
+import type { Service } from '../data/services';
 
 interface Props {
-  servico: Servico;
+  service: Service;
 }
-const { servico } = Astro.props;
+const { service } = Astro.props;
 ---
 
 <article class="flex h-full flex-col rounded-2xl border border-surface bg-midnight p-7 transition hover:border-violet">
-  <p class="font-mono text-sm text-marca">{servico.numero}</p>
-  <h3 class="mt-4 font-display text-xl font-bold">{servico.titulo}</h3>
-  <p class="mb-6 mt-3 leading-relaxed text-muted">{servico.descricao}</p>
+  <p class="font-mono text-sm text-brand-gradient">{service.number}</p>
+  <h3 class="mt-4 font-display text-xl font-bold">{service.title}</h3>
+  <p class="mb-6 mt-3 leading-relaxed text-muted">{service.description}</p>
   <p class="mt-auto border-t border-surface pt-5 text-sm leading-relaxed text-ice">
     <span class="mb-1 block font-mono text-xs uppercase tracking-widest text-lavender">
       Objetivo
     </span>
-    {servico.objetivo}
+    {service.goal}
   </p>
 </article>

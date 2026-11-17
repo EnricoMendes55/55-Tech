@@ -15,3 +15,13 @@ export const primaryContact = site.whatsapp
       event: 'whatsapp_click',
     }
   : { label: 'Falar no Instagram', href: instagramUrl, event: 'instagram_click' };
+
+/** Contato principal com a mensagem do WhatsApp já citando o assunto (ex.: o nome do serviço). */
+export function getContactAbout(subject: string) {
+  return site.whatsapp
+    ? {
+        ...primaryContact,
+        href: getWhatsAppUrl(`Olá! Vim pelo site da 55 Tech e quero conversar sobre ${subject}.`),
+      }
+    : primaryContact;
+}

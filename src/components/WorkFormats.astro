@@ -1,0 +1,22 @@
+---
+// Os três formatos de trabalho em cards. Usado na seção Processo da home e em /servicos/.
+import Card from './ui/Card.astro';
+import { workFormats } from '../data/process';
+
+interface Props {
+  /** Nível dos títulos, conforme a hierarquia da página. */
+  headingTag?: 'h3' | 'h4';
+  class?: string;
+}
+
+const { headingTag: Heading = 'h4', class: className } = Astro.props;
+---
+
+<ul class:list={['grid gap-5 md:grid-cols-3', className]}>
+  {workFormats.map((format) => (
+    <Card as="li" class="p-6">
+      <Heading class="font-display text-lg font-bold">{format.title}</Heading>
+      <p class="mt-2 text-sm leading-relaxed text-muted">{format.description}</p>
+    </Card>
+  ))}
+</ul>

@@ -1,0 +1,49 @@
+---
+// Canais de contato: o principal em destaque, depois Instagram e e-mail quando houver.
+import { site } from '../data/site';
+import { instagramUrl, primaryContact } from '../utils/contact';
+
+interface Props {
+  class?: string;
+}
+
+const { class: className } = Astro.props;
+---
+
+<ul class:list={['space-y-4', className]}>
+  <li>
+    <a
+      href={primaryContact.href}
+      data-event={primaryContact.event}
+      target="_blank"
+      rel="noopener noreferrer"
+      class="font-display text-xl font-bold text-brand-gradient"
+    >
+      {primaryContact.label} →
+    </a>
+  </li>
+  {site.whatsapp && (
+    <li>
+      <a
+        href={instagramUrl}
+        data-event="instagram_click"
+        target="_blank"
+        rel="noopener noreferrer"
+        class="text-muted transition hover:text-ice"
+      >
+        Instagram: @{site.instagram}
+      </a>
+    </li>
+  )}
+  {site.email && (
+    <li>
+      <a
+        href={`mailto:${site.email}`}
+        data-event="email_click"
+        class="text-muted transition hover:text-ice"
+      >
+        {site.email}
+      </a>
+    </li>
+  )}
+</ul>

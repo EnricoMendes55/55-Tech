@@ -1,0 +1,48 @@
+---
+// Os quatro serviços em grade e a Auditoria Digital 55 em destaque. Usado na home e em /servicos/.
+import ServiceCard from './ServiceCard.astro';
+import Button from './ui/Button.astro';
+import Eyebrow from './ui/Eyebrow.astro';
+import { getAuditOffer, getServices, servicePath } from '../utils/services';
+import { url } from '../utils/url';
+
+interface Props {
+  /** Destino de "Pedir uma auditoria": a âncora na home, a página /contato/ nas demais. */
+  contactPath: string;
+  /** Nível dos títulos dos cards (h2 logo abaixo do h1 da página, h3 dentro de uma seção). */
+  headingTag?: 'h2' | 'h3';
+}
+
+const { contactPath, headingTag: Heading = 'h3' } = Astro.props;
+const services = await getServices();
+const audit = await getAuditOffer();
+---
+
+<ul class="grid gap-5 md:grid-cols-2">
+  {services.map((service) => (
+    <li>
+      <ServiceCard service={service} headingTag={Heading} />
+    </li>
+  ))}
+</ul>
+
+<aside class="border-brand-gradient mt-5 flex flex-col gap-6 rounded-2xl p-7 md:flex-row md:items-center md:justify-between">
+  <div class="max-w-2xl">
+    <Eyebrow>Por onde começar</Eyebrow>
+    <Heading class="mt-3 font-display text-2xl font-bold">{audit.data.title}</Heading>
+    <p class="mt-3 leading-relaxed text-muted">{audit.data.summary}</p>
+    <ul class="mt-4 flex flex-wrap gap-x-6 gap-y-1 text-sm text-ice">
+      {audit.data.deliverables.map((deliverable) => (
+        <li>+ {deliverable}</li>
+      ))}
+    </ul>
+  </div>
+  <div class="flex shrink-0 flex-col items-start gap-4 md:items-center">
+    <Button href={url(contactPath)} variant="secondary">
+      Pedir uma auditoria
+    </Button>
+    <a href={url(servicePath(audit))} class="text-sm font-bold text-cyan hover:underline">
+      Como funciona a auditoria →
+    </a>
+  </div>
+</aside>

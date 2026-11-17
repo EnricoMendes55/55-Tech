@@ -1,0 +1,89 @@
+---
+// Formulário de contato: monta a mensagem e abre o WhatsApp. Nada é enviado a servidor.
+// Só existe quando há número em site.ts. Use no máximo um por página (o script busca #contact-form).
+import Card from './ui/Card.astro';
+import { site } from '../data/site';
+import { getAuditOffer, getServices } from '../utils/services';
+
+const services = await getServices();
+const audit = await getAuditOffer();
+const interests = [
+  ...services.map((service) => service.data.title),
+  audit.data.title,
+  'Ainda não sei',
+];
+const fieldClass =
+  'mt-2 w-full rounded-xl border border-stroke bg-deep-black px-4 py-3 text-ice placeholder:text-muted/60';
+---
+
+{site.whatsapp && (
+  <Card as="form" id="contact-form" class="p-6 sm:p-8">
+    <div class="grid gap-5 sm:grid-cols-2">
+      <label class="block text-sm font-medium">
+        Nome
+        <input type="text" name="name" required autocomplete="name" class={fieldClass} />
+      </label>
+      <label class="block text-sm font-medium">
+        Empresa <span class="font-normal text-muted">(opcional)</span>
+        <input type="text" name="company" autocomplete="organization" class={fieldClass} />
+      </label>
+    </div>
+    <label class="mt-5 block text-sm font-medium">
+      Interesse
+      <select name="interest" class={fieldClass}>
+        {interests.map((interest) => (
+          <option>{interest}</option>
+        ))}
+      </select>
+    </label>
+    <label class="mt-5 block text-sm font-medium">
+      Mensagem
+      <textarea name="message" required rows="4" class={fieldClass} />
+    </label>
+    <button
+      type="submit"
+      class="bg-action-gradient mt-6 w-full rounded-full px-6 py-3 text-sm font-bold text-deep-black transition hover:brightness-110"
+    >
+      Enviar pelo WhatsApp
+    </button>
+    <p class="mt-3 text-center text-xs text-muted">
+      Ao enviar, o WhatsApp abre com a mensagem pronta. Nada é armazenado neste site.
+    </p>
+  </Card>
+)}
+
+<script>
+  import { getWhatsAppUrl } from '../utils/contact';
+  import { trackEvent } from '../scripts/analytics';
+
+  const form = document.querySelector<HTMLFormElement>('#contact-form');
+
+  // Limpa o erro personalizado assim que a pessoa volta a digitar.
+  form?.addEventListener('input', (event) => {
+    (event.target as HTMLInputElement).setCustomValidity('');
+  });
+
+  form?.addEventListener('submit', (event) => {
+    event.preventDefault();
+    const data = new FormData(form);
+    const field = (name: string) => String(data.get(name) ?? '').trim();
+
+    // `required` aceita campos só com espaços; aqui eles contam como vazios.
+    for (const name of ['name', 'message']) {
+      const input = form.elements.namedItem(name) as HTMLInputElement | HTMLTextAreaElement;
+      input.setCustomValidity(field(name) ? '' : 'Preencha este campo.');
+    }
+    if (!form.reportValidity()) return;
+
+    const company = field('company');
+    const message = [
+      `Olá! Sou ${field('name')}${company ? `, da ${company}` : ''}.`,
+      `Interesse: ${field('interest')}`,
+      '',
+      field('message'),
+    ].join('\n');
+
+    window.open(getWhatsAppUrl(message), '_blank', 'noopener');
+    trackEvent('contact_form_submit', { interest: field('interest') });
+  });
+</script>

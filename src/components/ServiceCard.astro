@@ -1,21 +1,38 @@
 ---
+// Card de um serviço. O card inteiro leva à página do serviço: o link fica no título e um
+// pseudo-elemento estende a área clicável, mantendo um único link por card para leitores de tela.
 import Card from './ui/Card.astro';
-import type { Service } from '../data/services';
+import { servicePath, type ServiceEntry } from '../utils/services';
+import { url } from '../utils/url';
 
 interface Props {
-  service: Service;
+  service: ServiceEntry;
+  /** Nível do título, conforme a hierarquia da página (h2 sob o h1, h3 sob um h2). */
+  headingTag?: 'h2' | 'h3';
 }
-const { service } = Astro.props;
+
+const { service, headingTag: Heading = 'h3' } = Astro.props;
+const { number, title, summary, goal } = service.data;
 ---
 
-<Card as="article" class="flex h-full flex-col p-7 transition hover:border-violet">
-  <p class="font-mono text-sm text-brand-gradient">{service.number}</p>
-  <h3 class="mt-4 font-display text-xl font-bold">{service.title}</h3>
-  <p class="mb-6 mt-3 leading-relaxed text-muted">{service.description}</p>
+<Card
+  as="article"
+  class="relative flex h-full flex-col p-7 transition focus-within:border-violet hover:border-violet"
+>
+  <p class="font-mono text-sm text-brand-gradient">{number}</p>
+  <Heading class="mt-4 font-display text-xl font-bold">
+    <a href={url(servicePath(service))} class="after:absolute after:inset-0 after:rounded-2xl">
+      {title}
+    </a>
+  </Heading>
+  <p class="mb-6 mt-3 leading-relaxed text-muted">{summary}</p>
   <p class="mt-auto border-t border-surface pt-5 text-sm leading-relaxed text-ice">
     <span class="mb-1 block font-mono text-xs uppercase tracking-widest text-lavender">
       Objetivo
     </span>
-    {service.goal}
+    {goal}
+  </p>
+  <p class="mt-5 text-sm font-bold text-cyan" aria-hidden="true">
+    Saiba mais →
   </p>
 </Card>

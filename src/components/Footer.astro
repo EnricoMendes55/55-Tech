@@ -17,17 +17,21 @@ const ano = new Date().getFullYear();
 
     <nav aria-label="Rodapé">
       <ul class="grid grid-cols-2 gap-x-10 gap-y-3 text-sm text-muted">
-        {
-          menu.map((item) => (
-            <li>
-              <a href={url(`/#${item.ancora}`)} class="transition hover:text-ice">
-                {item.rotulo}
-              </a>
-            </li>
-          ))
-        }
+        {menu.map((item) => (
+          <li>
+            <a href={url(`/#${item.ancora}`)} class="transition hover:text-ice">
+              {item.rotulo}
+            </a>
+          </li>
+        ))}
         <li>
-          <a href={linkInstagram} data-evento="clique_instagram" target="_blank" rel="noopener noreferrer" class="transition hover:text-ice">
+          <a
+            href={linkInstagram}
+            data-evento="clique_instagram"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="transition hover:text-ice"
+          >
             Instagram
           </a>
         </li>
@@ -37,16 +41,18 @@ const ano = new Date().getFullYear();
 
   <div class="border-t border-surface/60">
     <div class="mx-auto flex max-w-6xl flex-wrap items-center justify-between gap-x-6 gap-y-2 px-5 py-5 font-mono text-xs text-muted sm:px-8">
-      <p>© {ano} {site.nome}</p>
+      <p>
+        © {ano} {site.nome}
+      </p>
       <div class="flex gap-6">
-        <a href={url('/privacidade/')} class="transition hover:text-ice">Privacidade</a>
-        {
-          site.ga4Id && (
-            <button type="button" data-abrir-consentimento class="transition hover:text-ice">
-              Preferências de cookies
-            </button>
-          )
-        }
+        <a href={url('/privacidade/')} class="transition hover:text-ice">
+          Privacidade
+        </a>
+        {site.ga4Id && (
+          <button type="button" data-abrir-consentimento class="transition hover:text-ice">
+            Preferências de cookies
+          </button>
+        )}
       </div>
     </div>
   </div>

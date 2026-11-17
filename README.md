@@ -5,13 +5,13 @@ Publicado em https://enricomendes55.github.io/55-Tech/ pelo GitHub Pages.
 
 ## Comandos
 
-| Comando           | O que faz                                                      |
-| ----------------- | -------------------------------------------------------------- |
-| `npm install`     | Instala as dependências (só na primeira vez ou após um clone)  |
+| Comando           | O que faz                                                            |
+| ----------------- | -------------------------------------------------------------------- |
+| `npm install`     | Instala as dependências (só na primeira vez ou após um clone)        |
 | `npm run dev`     | Abre o site em http://localhost:4321/55-Tech/ com recarga automática |
-| `npm run build`   | Gera o site final na pasta `dist/`                             |
-| `npm run preview` | Serve a pasta `dist/` para conferir o build                    |
-| `npm run check`   | Procura erros de TypeScript nos arquivos                       |
+| `npm run build`   | Gera o site final na pasta `dist/`                                   |
+| `npm run preview` | Serve a pasta `dist/` para conferir o build                          |
+| `npm run check`   | Procura erros de TypeScript nos arquivos                             |
 
 ## Publicação
 
@@ -55,6 +55,7 @@ src/
 ## Tarefas comuns
 
 **Informar WhatsApp, e-mail ou GA4** — `src/data/site.ts`.
+
 - `whatsapp`: só dígitos, com DDI e DDD (ex.: `5551999999999`). Enquanto estiver vazio,
   os botões de contato levam ao Instagram e o formulário não aparece.
 - `email`: vazio = não aparece no site.

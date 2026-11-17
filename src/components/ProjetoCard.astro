@@ -30,20 +30,16 @@ const publicado = projeto.status === 'publicado' && projeto.link;
     <h3 class="mt-3 font-display text-xl font-bold">{projeto.titulo}</h3>
     <p class="mt-2 leading-relaxed text-muted">{projeto.descricao}</p>
     <ul class="mt-5 flex flex-wrap gap-2">
-      {
-        projeto.destaques.map((destaque) => (
-          <li>
-            <Tag>{destaque}</Tag>
-          </li>
-        ))
-      }
+      {projeto.destaques.map((destaque) => (
+        <li>
+          <Tag>{destaque}</Tag>
+        </li>
+      ))}
     </ul>
-    {
-      publicado && (
-        <a href={projeto.link} class="mt-6 font-bold text-cyan underline-offset-4 hover:underline">
-          Ver projeto →
-        </a>
-      )
-    }
+    {publicado && (
+      <a href={projeto.link} class="mt-6 font-bold text-cyan underline-offset-4 hover:underline">
+        Ver projeto →
+      </a>
+    )}
   </div>
 </article>

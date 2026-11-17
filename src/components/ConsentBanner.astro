@@ -13,13 +13,24 @@ import { url } from '../utils/url';
 >
   <p class="text-sm leading-relaxed text-muted">
     Usamos o Google Analytics para entender como o site é usado. Ele só é ativado se você aceitar.
-    <a href={url('/privacidade/')} class="text-ice underline underline-offset-4">Saiba mais</a>.
+    <a href={url('/privacidade/')} class="text-ice underline underline-offset-4">
+      Saiba mais
+    </a>
+    .
   </p>
   <div class="mt-4 flex gap-3">
-    <button type="button" data-consentimento="aceito" class="rounded-full bg-ice px-5 py-2 text-sm font-bold text-deep-black">
+    <button
+      type="button"
+      data-consentimento="aceito"
+      class="rounded-full bg-ice px-5 py-2 text-sm font-bold text-deep-black"
+    >
       Aceitar
     </button>
-    <button type="button" data-consentimento="recusado" class="rounded-full border border-surface px-5 py-2 text-sm font-bold text-ice">
+    <button
+      type="button"
+      data-consentimento="recusado"
+      class="rounded-full border border-surface px-5 py-2 text-sm font-bold text-ice"
+    >
       Recusar
     </button>
   </div>

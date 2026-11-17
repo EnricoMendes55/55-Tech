@@ -16,21 +16,24 @@ import { url } from '../utils/url';
 
     <nav aria-label="Principal" class="hidden md:block">
       <ul class="flex items-center gap-7 text-sm font-medium text-muted">
-        {
-          menu.map((item) => (
-            <li>
-              <a href={url(`/#${item.ancora}`)} class="transition hover:text-ice">
-                {item.rotulo}
-              </a>
-            </li>
-          ))
-        }
+        {menu.map((item) => (
+          <li>
+            <a href={url(`/#${item.ancora}`)} class="transition hover:text-ice">
+              {item.rotulo}
+            </a>
+          </li>
+        ))}
       </ul>
     </nav>
 
     <div class="flex items-center gap-3">
       <div class="hidden sm:block">
-        <Button href={contatoPrincipal.href} evento={contatoPrincipal.evento} externo class="px-5 py-2.5">
+        <Button
+          href={contatoPrincipal.href}
+          evento={contatoPrincipal.evento}
+          externo
+          class="px-5 py-2.5"
+        >
           {contatoPrincipal.rotulo}
         </Button>
       </div>
@@ -43,24 +46,35 @@ import { url } from '../utils/url';
         aria-controls="menu-mobile"
         aria-label="Abrir menu"
       >
-        <svg width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true">
+        <svg
+          width="20"
+          height="20"
+          viewBox="0 0 20 20"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+          stroke-linecap="round"
+          aria-hidden="true"
+        >
           <path d="M3 6h14M3 10h14M3 14h14"></path>
         </svg>
       </button>
     </div>
   </div>
 
-  <nav id="menu-mobile" aria-label="Principal (celular)" class="hidden border-t border-surface/60 md:hidden">
+  <nav
+    id="menu-mobile"
+    aria-label="Principal (celular)"
+    class="hidden border-t border-surface/60 md:hidden"
+  >
     <ul class="mx-auto max-w-6xl px-5 py-3 sm:px-8">
-      {
-        menu.map((item) => (
-          <li>
-            <a href={url(`/#${item.ancora}`)} class="block py-3 font-medium text-ice">
-              {item.rotulo}
-            </a>
-          </li>
-        ))
-      }
+      {menu.map((item) => (
+        <li>
+          <a href={url(`/#${item.ancora}`)} class="block py-3 font-medium text-ice">
+            {item.rotulo}
+          </a>
+        </li>
+      ))}
     </ul>
   </nav>
 </header>

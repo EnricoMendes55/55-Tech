@@ -34,6 +34,7 @@ export const formatos = [
   },
   {
     titulo: 'Acompanhamento contínuo',
-    descricao: 'Plano mensal de melhorias, manutenção, relatórios e conversão, com escopo combinado.',
+    descricao:
+      'Plano mensal de melhorias, manutenção, relatórios e conversão, com escopo combinado.',
   },
 ];

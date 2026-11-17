@@ -24,9 +24,8 @@ import { linkInstagram } from '../utils/contato';
       <section>
         <h2 class="font-display text-xl font-bold text-ice">Formulário de contato</h2>
         <p class="mt-3">
-          O formulário apenas monta uma mensagem e abre o WhatsApp no seu aparelho. O envio
-          acontece pelo WhatsApp, quando você confirma, e segue as regras de privacidade desse
-          serviço.
+          O formulário apenas monta uma mensagem e abre o WhatsApp no seu aparelho. O envio acontece
+          pelo WhatsApp, quando você confirma, e segue as regras de privacidade desse serviço.
         </p>
       </section>
 
@@ -34,9 +33,9 @@ import { linkInstagram } from '../utils/contato';
         <h2 class="font-display text-xl font-bold text-ice">Estatísticas de uso</h2>
         <p class="mt-3">
           Quando ativado, usamos o Google Analytics para entender quais páginas são visitadas e
-          quais botões são clicados. Ele só é carregado depois que você aceita no aviso de
-          cookies. Se recusar, nenhuma informação de navegação é enviada. Sua escolha fica salva
-          apenas no seu navegador e pode ser alterada em "Preferências de cookies", no rodapé.
+          quais botões são clicados. Ele só é carregado depois que você aceita no aviso de cookies.
+          Se recusar, nenhuma informação de navegação é enviada. Sua escolha fica salva apenas no
+          seu navegador e pode ser alterada em "Preferências de cookies", no rodapé.
         </p>
       </section>
 
@@ -52,9 +51,25 @@ import { linkInstagram } from '../utils/contato';
         <h2 class="font-display text-xl font-bold text-ice">Dúvidas</h2>
         <p class="mt-3">
           Fale com a gente
-          {site.email && <>pelo e-mail <a href={`mailto:${site.email}`} class="text-ice underline underline-offset-4">{site.email}</a> ou</>}
+          {site.email && (
+            <>
+              pelo e-mail{' '}
+              <a href={`mailto:${site.email}`} class="text-ice underline underline-offset-4">
+                {site.email}
+              </a>{' '}
+              ou
+            </>
+          )}
           pelo Instagram
-          <a href={linkInstagram} class="text-ice underline underline-offset-4" target="_blank" rel="noopener noreferrer">@{site.instagram}</a>.
+          <a
+            href={linkInstagram}
+            class="text-ice underline underline-offset-4"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            @{site.instagram}
+          </a>
+          .
         </p>
       </section>
     </div>

@@ -31,7 +31,7 @@ Documentação detalhada em `docs/`: architecture.md, maintenance.md, deployment
 ## Componentes
 
 - Um componente, uma responsabilidade. Acima de ~150 linhas, avaliar divisão.
-- Reutilizar antes de criar: ver `src/components/ui/` e `src/components/layout/` (quando existir).
+- Reutilizar antes de criar: ver `src/components/ui/` e `src/components/layout/`.
 - Criar abstração só quando o mesmo padrão aparecer em 3 lugares ou mais.
 - Props tipadas com `interface Props`; nomes de props em inglês.
 - Sem React. Interatividade com `<script>` em TypeScript. React só com aprovação explícita

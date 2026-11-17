@@ -29,5 +29,5 @@ A partir disso, construímos primeiro o essencial, uma versão que resolve o pro
 
 ## O que você recebe
 
-- O sistema funcionando, testado com situações reais da sua operação.
+- A solução desenvolvida conforme o escopo combinado, com testes dos principais fluxos de uso.
 - Orientação de uso para a equipe e uma conversa sobre manutenção e próximas melhorias.

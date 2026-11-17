@@ -30,4 +30,4 @@ Pode ser um diagnóstico pontual ou um acompanhamento mensal, com escopo combina
 
 ## O que esperar
 
-SEO e analytics são trabalho técnico e estratégico, com indicadores e melhorias que dá para acompanhar. Não prometemos primeira posição no Google nem aumento garantido de vendas: prometemos clareza sobre o que está acontecendo e um plano para melhorar.
+SEO e analytics são trabalho técnico e estratégico, com indicadores e melhorias que dá para acompanhar. Não prometemos primeira posição no Google nem aumento garantido de vendas. Nosso compromisso é apresentar diagnósticos claros, recomendações fundamentadas em dados e acompanhar os resultados das melhorias realizadas, conforme o serviço contratado.

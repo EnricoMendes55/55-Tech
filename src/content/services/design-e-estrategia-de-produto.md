@@ -16,7 +16,7 @@ seoDescription: 'UX/UI, fluxos, protótipos e design systems para transformar um
 
 ## O que pode incluir
 
-- **UX/UI:** a experiência e a interface do produto, pensadas a partir de quem vai usar.
+- **Design de experiência e interface (UX/UI):** organização das telas e interações para que as pessoas consigam utilizar o produto com facilidade.
 - **Estruturação de fluxos:** o caminho que cada pessoa percorre para concluir uma tarefa, sem etapas desnecessárias.
 - **Prototipação:** um protótipo navegável para testar a ideia antes de programar.
 - **Design system:** cores, tipografia e componentes documentados, para manter o produto coerente.

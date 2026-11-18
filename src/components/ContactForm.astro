@@ -8,6 +8,7 @@ import { site } from '../data/site';
 import { integratedSolutionSlug } from '../utils/contact';
 import { getPageName } from '../utils/pages';
 import { getAuditOffer, getServices } from '../utils/services';
+import { counterText } from '../scripts/needCounter';
 
 const services = await getServices();
 const audit = await getAuditOffer();
@@ -72,9 +73,18 @@ const fieldClass =
         required
         rows="4"
         placeholder={text.needPlaceholder}
+        aria-describedby="need-counter"
         class={fieldClass}
       />
     </label>
+    {/*
+      Contador visível (lido junto com o campo, pelo aria-describedby) e uma cópia só para
+      leitores de tela, atualizada quando a pessoa para de digitar, para não falar a cada tecla.
+    */}
+    <p id="need-counter" class="mt-2 text-right text-xs text-muted">
+      {counterText('')}
+    </p>
+    <p id="need-counter-live" class="sr-only" aria-live="polite"></p>
     <label class:list={[labelClass, 'mt-5']}>
       {text.labels.deadline} <span class="font-normal text-muted">{text.optional}</span>
       <select name="deadline" class={fieldClass}>
@@ -114,6 +124,7 @@ const fieldClass =
   import { getWhatsAppUrl } from '../utils/contact';
   import { trackEvent } from '../scripts/analytics';
   import { buildQuoteMessage } from '../scripts/quoteMessage';
+  import { counterText, isOverLimit, tooLongError } from '../scripts/needCounter';
 
   const form = document.querySelector<HTMLFormElement>('#contact-form');
 
@@ -147,6 +158,26 @@ const fieldClass =
       else field.removeAttribute('aria-invalid');
     };
 
+    // Contador do campo de necessidade. Não há `maxlength`: um texto colado acima do limite
+    // continua inteiro no campo, o contador mostra o excesso e o envio é bloqueado.
+    const need = form.elements.namedItem('need') as HTMLTextAreaElement;
+    const counter = document.querySelector<HTMLElement>('#need-counter');
+    const counterLive = document.querySelector<HTMLElement>('#need-counter-live');
+    let announce: number | undefined;
+    const updateCounter = () => {
+      const over = isOverLimit(need.value);
+      if (counter) {
+        counter.textContent = counterText(need.value);
+        counter.classList.toggle('font-bold', over);
+        counter.classList.toggle('text-ice', over);
+      }
+      clearTimeout(announce);
+      announce = window.setTimeout(() => {
+        if (counterLive) counterLive.textContent = counterText(need.value);
+      }, 1000);
+    };
+    need.addEventListener('input', updateCounter);
+
     // O erro de um campo some assim que a pessoa volta a mexer nele.
     const clearError = (event: Event) => setError(event.target as HTMLInputElement, '');
     form.addEventListener('input', clearError);
@@ -161,6 +192,7 @@ const fieldClass =
         const field = form.elements.namedItem(name) as HTMLInputElement;
         setError(field, value(name) ? '' : error);
       }
+      if (value('need') && isOverLimit(need.value)) setError(need, tooLongError);
       // Mostra o primeiro erro no próprio campo e leva o foco até ele. Nada do que foi
       // digitado é apagado.
       if (!form.reportValidity()) return;

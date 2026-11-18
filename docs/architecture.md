@@ -51,6 +51,7 @@ src/
   scripts/              Rodam no navegador
     analytics.ts        Consentimento e GA4
     quoteMessage.ts     buildQuoteMessage(): texto do pedido de orçamento para o WhatsApp
+    needCounter.ts      Contador de caracteres do campo de necessidade (build e navegador)
   utils/
     url.ts              url() prefixa links internos; getCurrentState() calcula o aria-current
     contact.ts          Pedido de orçamento (quoteRequest, getQuoteHref) e contato direto
@@ -131,8 +132,11 @@ src/
   script, para que campos só com espaços contem como vazios e as mensagens sejam as de
   `contactForm.ts`) e abre o WhatsApp com a mensagem pronta (`buildQuoteMessage`). Campos
   opcionais vazios não entram na mensagem; a primeira linha vem do `data-opening` da opção
-  escolhida, e a última cita a página (`data-page` do formulário). Nada é enviado a servidor
-  algum nem guardado no navegador. O parâmetro `?servico=` (nome do arquivo do serviço,
+  escolhida, e a última cita a página (`data-page` do formulário). O campo de necessidade tem
+  contador e limite (`needLimit`), sem `maxlength`: um texto acima do limite nunca é cortado; o
+  contador mostra o excesso e o envio fica bloqueado até a pessoa ajustar. Para leitores de tela,
+  o contador é lido com o campo (`aria-describedby`) e repetido numa região `aria-live` quando a
+  pessoa para de digitar. Nada é enviado a servidor algum nem guardado no navegador. O parâmetro `?servico=` (nome do arquivo do serviço,
   ou `solucao-integrada`) deixa o assunto já selecionado; só vale um valor que corresponda
   exatamente a uma opção (`data-slug`), e qualquer outro mantém "Selecione uma opção".
 - `ConsentBanner.astro` + `scripts/analytics.ts`: banner de consentimento e carregamento do GA4.

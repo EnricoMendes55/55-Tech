@@ -22,7 +22,8 @@ O site abre em http://localhost:4321/55-Tech/ e recarrega a cada alteração.
   Google Analytics só carrega depois que o visitante aceita.
 
 **Formulário de orçamento** — rótulos, opções de prazo, orientações, nota, mensagens de erro e o
-formato da mensagem do WhatsApp em `src/data/contactForm.ts`. As opções de serviço vêm de
+formato da mensagem do WhatsApp em `src/data/contactForm.ts`. O limite do campo de necessidade
+(`needLimit`, 2.000 caracteres) e os textos do contador também ficam lá. As opções de serviço vêm de
 `src/content/services/`. Os passos de "O que acontece em seguida" (`/contato/`) ficam em
 `afterRequestSteps`, em `src/data/process.ts`.
 

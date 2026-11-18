@@ -1,7 +1,8 @@
 ---
-// Canais de contato: o principal em destaque, depois Instagram e e-mail quando houver.
+// Canais de contato: o principal em destaque, depois Instagram e e-mail quando houver, e os dias
+// de atendimento.
 import { site } from '../data/site';
-import { getDirectContact, instagramUrl } from '../utils/contact';
+import { directContactLead, getDirectContact, instagramUrl } from '../utils/contact';
 import { getPageName } from '../utils/pages';
 
 interface Props {
@@ -12,40 +13,45 @@ const { class: className } = Astro.props;
 const directContact = getDirectContact(await getPageName(Astro.url.pathname));
 ---
 
-<ul class:list={['space-y-4', className]}>
-  <li>
-    <a
-      href={directContact.href}
-      data-event={directContact.event}
-      target="_blank"
-      rel="noopener noreferrer"
-      class="font-display text-xl font-bold text-brand-gradient"
-    >
-      {directContact.label} →
-    </a>
-  </li>
-  {site.whatsapp && (
+<div class={className}>
+  <ul class="space-y-4">
     <li>
+      {/* A frase só faz sentido ao lado do formulário, que só existe com WhatsApp. */}
+      {site.whatsapp && <span class="block text-sm text-muted">{directContactLead}</span>}
       <a
-        href={instagramUrl}
-        data-event="instagram_click"
+        href={directContact.href}
+        data-event={directContact.event}
         target="_blank"
         rel="noopener noreferrer"
-        class="text-muted transition hover:text-ice"
+        class="font-display text-xl font-bold text-brand-gradient"
       >
-        Instagram: @{site.instagram}
+        {directContact.label} →
       </a>
     </li>
-  )}
-  {site.email && (
-    <li>
-      <a
-        href={`mailto:${site.email}`}
-        data-event="email_click"
-        class="text-muted transition hover:text-ice"
-      >
-        {site.email}
-      </a>
-    </li>
-  )}
-</ul>
+    {site.whatsapp && (
+      <li>
+        <a
+          href={instagramUrl}
+          data-event="instagram_click"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="text-muted transition hover:text-ice"
+        >
+          Instagram: @{site.instagram}
+        </a>
+      </li>
+    )}
+    {site.email && (
+      <li>
+        <a
+          href={`mailto:${site.email}`}
+          data-event="email_click"
+          class="text-muted transition hover:text-ice"
+        >
+          {site.email}
+        </a>
+      </li>
+    )}
+  </ul>
+  <p class="mt-6 text-sm text-muted">{site.availability}</p>
+</div>

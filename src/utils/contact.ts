@@ -42,6 +42,9 @@ export function getDirectContact(pageName?: string): DirectContact {
   return whatsAppContact(`Olá! Vim pelo site da 55 Tech${origin} e gostaria de conversar.`);
 }
 
+/** Frase antes do contato direto, ao lado do formulário ("Prefere conversar direto?"). */
+export const directContactLead = 'Prefere conversar direto?';
+
 /** Contato direto com a mensagem do WhatsApp já citando o assunto (ex.: o nome do serviço). */
 export function getContactAbout(subject: string): DirectContact {
   if (!site.whatsapp) return instagramContact;

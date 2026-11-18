@@ -8,11 +8,12 @@ import SectionHeading from '../components/ui/SectionHeading.astro';
 import ContactChannels from '../components/ContactChannels.astro';
 import ContactForm from '../components/ContactForm.astro';
 import ProcessSteps from '../components/ProcessSteps.astro';
+import { afterRequestSteps } from '../data/process';
 ---
 
 <BaseLayout
   title="Contato"
-  description="Fale com a 55 Tech pelo WhatsApp ou pelo formulário. Conte o que você precisa: a primeira conversa é sem compromisso."
+  description="Solicite um orçamento à 55 Tech: conte sua necessidade e seu objetivo. Avaliamos cada solicitação e, havendo alinhamento, preparamos uma proposta."
 >
   <Container class="pb-20 pt-10 sm:pb-28">
     <Breadcrumbs items={[{ label: 'Contato' }]} />
@@ -20,8 +21,8 @@ import ProcessSteps from '../components/ProcessSteps.astro';
       <div>
         <PageHeader
           eyebrow="Contato"
-          title="Vamos conversar sobre o seu projeto?"
-          description="Conte o que você precisa. A primeira conversa é sem compromisso."
+          title="Solicite um orçamento."
+          description="Conte o que você precisa e qual é o seu objetivo. Nossa equipe avaliará sua solicitação e, quando houver alinhamento, preparará uma proposta personalizada."
         />
         <ContactChannels class="mt-8" />
       </div>
@@ -34,10 +35,10 @@ import ProcessSteps from '../components/ProcessSteps.astro';
 
   <Section tone="alt">
     <SectionHeading
-      eyebrow="Depois do contato"
+      eyebrow="Depois da solicitação"
       title="O que acontece em seguida."
-      description="Antes de começar, alinhamos o escopo, os prazos estimados e o investimento necessário, para que você possa decidir com clareza."
+      description="Do primeiro contato ao início do projeto, você sabe quem está cuidando de cada etapa."
     />
-    <ProcessSteps limit={2} class="mt-12 max-w-3xl" />
+    <ProcessSteps items={afterRequestSteps} class="mt-12 max-w-3xl" />
   </Section>
 </BaseLayout>

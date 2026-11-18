@@ -1,6 +1,12 @@
-// Etapas da contratação e da entrega, e os formatos de trabalho.
+// Etapas da contratação e da entrega, os passos depois do pedido de orçamento e os formatos de
+// trabalho.
 
-export const steps = [
+export interface Step {
+  title: string;
+  description: string;
+}
+
+export const steps: Step[] = [
   {
     title: 'Conversa inicial',
     description: 'Entendemos o seu negócio, o momento da empresa e o que você precisa resolver.',
@@ -20,6 +26,30 @@ export const steps = [
   {
     title: 'Acompanhamento',
     description: 'Se fizer sentido, seguimos com melhorias, manutenção e análise de resultados.',
+  },
+];
+
+/** "O que acontece em seguida", em /contato/: do pedido de orçamento ao início do projeto. */
+export const afterRequestSteps: Step[] = [
+  {
+    title: 'Recebemos a sua solicitação',
+    description:
+      'A Crislaine, do Atendimento e Sucesso do Cliente, organiza as informações e retorna para dar sequência.',
+  },
+  {
+    title: 'Entendemos a necessidade',
+    description:
+      'Conversamos sobre o objetivo, o prazo desejado e o que já existe na sua empresa. As questões técnicas são avaliadas pelo Enrico, de Produto e Tecnologia.',
+  },
+  {
+    title: 'Proposta personalizada',
+    description:
+      'Quando houver alinhamento, preparamos uma proposta com escopo, etapas, prazo, investimento e condições de pagamento. A negociação é conduzida pelo Dr. Michel, de Negócios.',
+  },
+  {
+    title: 'O projeto começa',
+    description:
+      'O trabalho começa com a proposta aprovada, o contrato formalizado, a entrada confirmada e os materiais necessários disponíveis. A partir daí, seguimos em etapas e entregas.',
   },
 ];
 

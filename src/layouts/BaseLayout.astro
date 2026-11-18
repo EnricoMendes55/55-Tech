@@ -1,6 +1,11 @@
 ---
 // Moldura de todas as páginas: <head> com SEO, cabeçalho, rodapé e banner de consentimento.
 import '../styles/global.css';
+// As três fontes da marca (subconjunto latino), pré-carregadas para chegarem antes da primeira pintura:
+// sem isso, a troca da fonte do sistema pela da marca muda a altura dos títulos e desloca a página.
+import displayFont from '@fontsource-variable/space-grotesk/files/space-grotesk-latin-wght-normal.woff2?url';
+import bodyFont from '@fontsource-variable/manrope/files/manrope-latin-wght-normal.woff2?url';
+import monoFont from '@fontsource/space-mono/files/space-mono-latin-400-normal.woff2?url';
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
 import ConsentBanner from '../components/ConsentBanner.astro';
@@ -46,6 +51,9 @@ const jsonLd = {
     {/* Página fora do índice (ex.: 404) não declara endereço canônico. */}
     {!noIndex && <link rel="canonical" href={canonicalUrl} />}
     {noIndex && <meta name="robots" content="noindex" />}
+    <link rel="preload" href={displayFont} as="font" type="font/woff2" crossorigin />
+    <link rel="preload" href={bodyFont} as="font" type="font/woff2" crossorigin />
+    <link rel="preload" href={monoFont} as="font" type="font/woff2" crossorigin />
     <link rel="icon" type="image/png" href={url('/favicon.png')} />
     <meta name="theme-color" content="#090a14" />
 

@@ -16,11 +16,13 @@ export const contactForm = {
   /** Opções do serviço além dos serviços e da Auditoria, que vêm de src/content/services/. */
   integratedSolution: 'Mais de um serviço (solução integrada)',
   unsure: 'Ainda não sei',
+  /** Máximo de caracteres do campo de necessidade. Acima disso o envio é bloqueado (nada é cortado). */
+  needLimit: 2000,
   needPlaceholder:
     'Ex.: queremos um site para apresentar a empresa e receber pedidos de orçamento.',
   deadlinePlaceholder: 'Selecione (opcional)',
   deadlines: ['O quanto antes', 'Nos próximos 3 meses', 'Em mais de 3 meses', 'Ainda não sei'],
-  websitePlaceholder: 'Ex.: www.suaempresa.com.br ou @suaempresa',
+  websitePlaceholder: 'Ex.: suaempresa.com.br ou @suaempresa',
   /** Só orienta: o campo continua opcional, inclusive para a Auditoria. */
   websiteHint: 'Se estiver solicitando a Auditoria Digital 55, informe o endereço do site.',
   submit: 'Continuar no WhatsApp',
@@ -28,6 +30,15 @@ export const contactForm = {
   errors: {
     required: 'Preencha este campo.',
     select: 'Selecione uma opção.',
+    /** {max} é trocado pelo limite, já formatado (ex.: 2.000). */
+    tooLong: 'Use no máximo {max} caracteres.',
+  },
+  /** Contador do campo de necessidade; {n} e {max} são trocados pelos números formatados. */
+  counter: {
+    remaining: 'Restam {n} de {max} caracteres.',
+    remainingOne: 'Resta 1 de {max} caracteres.',
+    over: '{n} caracteres acima do limite de {max}.',
+    overOne: '1 caractere acima do limite de {max}.',
   },
 };
 

@@ -31,6 +31,8 @@ src/
     about.ts            Diferenciais (home e /quem-somos/)
     projects.ts         Projetos & Experimentos
     process.ts          Etapas do processo e formatos de trabalho
+    solutions.ts        Textos da seção Soluções integradas (home e /servicos/)
+    team.ts             Equipe exibida em /quem-somos/
   layouts/
     BaseLayout.astro    <head> (SEO, Open Graph, JSON-LD), Header, Footer e banner
   components/
@@ -42,15 +44,17 @@ src/
     ProcessSteps, WorkFormats       Etapas do processo; formatos de trabalho
     ContactChannels, ContactForm    Canais de contato; formulário que abre o WhatsApp
     CallToAction                    Bloco final "Vamos conversar" das páginas internas
+    IntegratedSolutions             Seção Soluções integradas (#solucoes-integradas)
+    TeamSection                     Seção Equipe de /quem-somos/
     ProjectCard
   scripts/analytics.ts  Consentimento e GA4 (roda no navegador)
   utils/
     url.ts              url() prefixa links internos; getCurrentState() calcula o aria-current
     contact.ts          Links de WhatsApp/Instagram, contato principal e getContactAbout(assunto)
-    services.ts         getServices(), getAuditOffer() e servicePath() sobre a coleção de serviços
+    services.ts         getServices(), getAuditOffer(), getCombinedServices() e servicePath()
   pages/                Cada arquivo vira uma rota
     index.astro         Página inicial: só monta as seções
-    servicos/index.astro    /servicos/: todos os serviços e os formatos de trabalho
+    servicos/index.astro    /servicos/: serviços, soluções integradas e formatos de trabalho
     servicos/[slug].astro   /servicos/<nome>/: uma página por arquivo de content/services
     quem-somos.astro    /quem-somos/
     contato.astro       /contato/
@@ -70,7 +74,11 @@ src/
 - Os componentes leem esses arquivos e desenham; para mudar um texto ou adicionar um item,
   edita-se o arquivo de conteúdo ou de dados.
 - A coleção `services` é a única fonte dos serviços: os cards da home, `/servicos/`, as
-  páginas de cada serviço e as opções do formulário leem dela.
+  páginas de cada serviço e as opções do formulário leem dela. São seis serviços principais
+  (`kind: 'service'`, numerados de 01 a 06) e a Auditoria Digital 55 (`kind: 'audit'`).
+- O campo `combinesWith` de cada serviço lista outros serviços pelo nome do arquivo e alimenta
+  o bloco "Combina com" da página do serviço. Usa `reference('services')`: um nome que não
+  existe faz o build falhar.
 
 ## Componentes de layout e de interface
 
@@ -92,6 +100,11 @@ src/
   `--color-ice`, `--color-muted`, `--color-stroke` (bordas de cards e controles, contraste 3:1)
   e as fontes `--font-display`, `--font-sans`, `--font-mono`.
   Cada token vira classes (`bg-midnight`, `text-cyan`, `border-stroke`, `font-display`...).
+- **Fontes:** importadas do Fontsource em `global.css`. O `BaseLayout` pré-carrega o arquivo
+  latino de cada uma (`<link rel="preload">`), para que cheguem antes da primeira pintura: sem
+  isso, a troca da fonte do sistema pela da marca muda a quebra de linha de títulos e da trilha
+  de navegação e desloca a página (CLS). Ao trocar ou acrescentar uma fonte, atualize os imports
+  `?url` no `BaseLayout`.
 - **Larguras** `--container-content` (72rem) e `--container-reading` (48rem), usadas como
   `max-w-content` e `max-w-reading` pelo `Container`.
 - **Gradiente da marca** em `--gradient-brand`, usado pelos utilitários

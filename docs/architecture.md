@@ -50,7 +50,9 @@ src/
   scripts/analytics.ts  Consentimento e GA4 (roda no navegador)
   utils/
     url.ts              url() prefixa links internos; getCurrentState() calcula o aria-current
-    contact.ts          Links de WhatsApp/Instagram, contato principal e getContactAbout(assunto)
+    contact.ts          Pedido de orçamento (quoteRequest, getQuoteHref) e contato direto
+                        (getDirectContact, getContactAbout) por WhatsApp/Instagram
+    pages.ts            getPageName(): nome da página citado na mensagem do WhatsApp
     services.ts         getServices(), getAuditOffer(), getCombinedServices() e servicePath()
   pages/                Cada arquivo vira uma rota
     index.astro         Página inicial: só monta as seções
@@ -122,8 +124,10 @@ src/
 
 - `Header.astro`: abre e fecha o menu do celular (`#menu-button`, `#mobile-menu`); Esc fecha
   e devolve o foco ao botão.
-- `Contact.astro`: valida o formulário (`#contact-form`) e abre o WhatsApp com a mensagem pronta.
-  Nada é enviado a servidor algum.
+- `ContactForm.astro`: valida o formulário (`#contact-form`) e abre o WhatsApp com a mensagem
+  pronta. Nada é enviado a servidor algum. O parâmetro `?servico=` (nome do arquivo do serviço,
+  ou `solucao-integrada`) deixa o assunto já selecionado; só vale um valor que corresponda
+  exatamente a uma opção (`data-slug`), e qualquer outro mantém "Selecione uma opção".
 - `ConsentBanner.astro` + `scripts/analytics.ts`: banner de consentimento e carregamento do GA4.
 
 ## Decisões
@@ -133,7 +137,14 @@ src/
   A escolha fica no `localStorage` na chave `consentimento-analytics` (valores `aceito`/`recusado`).
   Essa chave é dado persistido no navegador dos visitantes e não deve ser renomeada.
 - **Eventos.** Cliques são medidos por `data-event="event_name"` (delegação em `ConsentBanner.astro`).
-  Eventos atuais: `whatsapp_click`, `instagram_click`, `email_click`, `contact_form_submit`.
+  Eventos atuais: `quote_request_click` (botões que levam ao formulário de orçamento),
+  `whatsapp_click`, `instagram_click`, `email_click`, `contact_form_submit`.
+- **Contato.** A ação principal é "Solicitar orçamento", que leva ao formulário: `#contato` na
+  home e `/contato/#formulario` nas demais páginas, com `?servico=` nas páginas de serviço e no
+  bloco da Auditoria. "Falar no WhatsApp" é a alternativa direta, com a página de origem na
+  mensagem pronta. No cabeçalho, o botão mostra o rótulo completo a partir de 640 px,
+  "Orçamento" entre 360 px e 639 px (limite em `22.5rem`, para acompanhar o tamanho de letra do
+  navegador) e fica só no menu abaixo disso.
 - **Navegação.** Itens de `navigation` (`site.ts`) têm `label` e `path`: âncora (`'/#servicos'`)
   ou página (`'/servicos/'`). O item da página aberta recebe `aria-current="page"`.
 - **404** tem `noindex` e não declara canonical.

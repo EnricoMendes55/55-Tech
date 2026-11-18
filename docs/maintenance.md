@@ -14,7 +14,13 @@ O site abre em http://localhost:4321/55-Tech/ e recarrega a cada alteração.
 **Contatos e GA4** — `src/data/site.ts`.
 
 - `whatsapp`: só dígitos, com DDI e DDD (ex.: `5548999999999`). Vazio: os botões de contato
-  levam ao Instagram e o formulário não aparece.
+  direto levam ao Instagram, o formulário não aparece e "Solicitar orçamento" leva à página
+  `/contato/`.
+
+**Botões de orçamento e contato** — rótulos e mensagens prontas em `src/utils/contact.ts`. Para
+um novo botão de orçamento, use `getQuoteHref(idDoServiço)` e `quoteRequest.event`. Os nomes das
+páginas citados na mensagem do WhatsApp ficam em `src/utils/pages.ts`.
+
 - `email`: vazio = não aparece no site.
 - `ga4Id`: vazio = sem analytics e sem banner de cookies. Preenchido, o banner aparece e o
   Google Analytics só carrega depois que o visitante aceita.
@@ -110,7 +116,8 @@ npm run check:links
 
 - `format` reescreve os arquivos no padrão do Prettier (`format:check` só confere; é o que o CI roda).
 - `check` precisa terminar com 0 erros, 0 avisos.
-- `check:links` confere, depois do build, se todo link interno e toda âncora existem.
+- `check:links` confere, depois do build, se todo link interno e toda âncora existem, e se todo
+  `?servico=` corresponde a uma opção do formulário de destino.
 - Conferir no `npm run dev` em 375 px e 1280 px e navegar por teclado no que mudou.
 
 ## Git

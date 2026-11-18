@@ -22,7 +22,7 @@ export const contactForm = {
     'Ex.: queremos um site para apresentar a empresa e receber pedidos de orçamento.',
   deadlinePlaceholder: 'Selecione (opcional)',
   deadlines: ['O quanto antes', 'Nos próximos 3 meses', 'Em mais de 3 meses', 'Ainda não sei'],
-  websitePlaceholder: 'Ex.: suaempresa.com.br ou @suaempresa',
+  websitePlaceholder: 'Ex.: suaempresa.com.br',
   /** Só orienta: o campo continua opcional, inclusive para a Auditoria. */
   websiteHint: 'Se estiver solicitando a Auditoria Digital 55, informe o endereço do site.',
   submit: 'Continuar no WhatsApp',

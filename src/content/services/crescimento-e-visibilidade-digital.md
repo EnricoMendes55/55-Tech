@@ -43,4 +43,4 @@ Pode ser um diagnóstico pontual ou um acompanhamento mensal, com escopo combina
 
 SEO e analytics são trabalho técnico e estratégico, com indicadores e melhorias que dá para acompanhar. Não prometemos primeira posição no Google nem aumento garantido de vendas. Nosso compromisso é apresentar diagnósticos claros, recomendações fundamentadas em dados e acompanhar os resultados das melhorias realizadas, conforme o serviço contratado.
 
-Ferramentas de busca com IA decidem sozinhas o que exibir e recomendar. Trabalhamos para que a sua empresa seja bem compreendida por elas, mas não garantimos menções, recomendações ou resultados comerciais específicos.
+Os mecanismos de busca e as plataformas de inteligência artificial utilizam seus próprios critérios para selecionar, apresentar e recomendar informações. Trabalhamos para que a sua empresa seja bem compreendida por elas, mas não garantimos menções, recomendações ou resultados comerciais específicos.

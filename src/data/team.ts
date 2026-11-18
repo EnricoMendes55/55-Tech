@@ -31,7 +31,7 @@ export const team: TeamMember[] = [
   },
   {
     name: 'Crislaine Mendes Vienhage',
-    initials: 'CV',
+    initials: 'CM',
     role: 'Atendimento e Sucesso do Cliente',
     description:
       'Responsável pelo atendimento administrativo, relacionamento com clientes, acompanhamento e suporte.',

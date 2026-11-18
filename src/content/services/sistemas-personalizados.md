@@ -24,7 +24,7 @@ combinesWith:
 - **Automações:** tarefas repetitivas, como avisos, relatórios e atualizações de status, feitas pelo sistema em vez de manualmente.
 - **Integrações:** fazer ferramentas que você já usa trocarem informações, sem digitar a mesma coisa duas vezes.
 - **Estruturação de fluxos:** o caminho que cada pessoa percorre para concluir uma tarefa, sem etapas desnecessárias.
-- **Melhorias em aplicações existentes:** novas funções, correções e ajustes de desempenho em um sistema que já está em uso.
+- **Evolução de produtos existentes:** melhorias na experiência de uso, nos fluxos e nas funcionalidades de sistemas e aplicativos já em operação, além de correções e ajustes de desempenho.
 
 ## Como trabalhamos
 

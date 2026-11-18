@@ -13,7 +13,13 @@ import SectionHeading from '../../components/ui/SectionHeading.astro';
 import ServiceCard from '../../components/ServiceCard.astro';
 import { site } from '../../data/site';
 import { getContactAbout } from '../../utils/contact';
-import { getAuditOffer, getServices, type ServiceEntry } from '../../utils/services';
+import {
+  getAuditOffer,
+  getCombinedServices,
+  getServices,
+  servicePath,
+  type ServiceEntry,
+} from '../../utils/services';
 import { url } from '../../utils/url';
 
 export async function getStaticPaths() {
@@ -32,6 +38,7 @@ const { Content } = await render(entry);
 const isAudit = kind === 'audit';
 const contact = getContactAbout(isAudit ? `a ${title}` : `o serviço de ${title}`);
 const otherServices = (await getServices()).filter((service) => service.id !== entry.id);
+const combinedServices = await getCombinedServices(entry);
 
 const serviceJsonLd = {
   '@context': 'https://schema.org',
@@ -74,6 +81,32 @@ const serviceJsonLd = {
               ))}
             </ul>
           )}
+          {combinedServices.length > 0 && (
+            <div class="mt-5 border-t border-surface pt-5">
+              <p class="font-mono text-xs uppercase tracking-widest text-lavender">Combina com</p>
+              <ul class="mt-2 text-sm">
+                {combinedServices.map((service) => (
+                  <li>
+                    <a
+                      href={url(servicePath(service))}
+                      class="inline-block py-1 text-ice underline underline-offset-4 hover:text-cyan"
+                    >
+                      {service.data.title}
+                    </a>
+                  </li>
+                ))}
+              </ul>
+              <p class="mt-2 text-xs leading-relaxed text-muted">
+                Contratados separadamente ou em um projeto integrado, conforme o escopo.{' '}
+                <a
+                  href={url('/servicos/#solucoes-integradas')}
+                  class="text-ice underline underline-offset-4"
+                >
+                  Como funciona
+                </a>
+              </p>
+            </div>
+          )}
           <Button href={contact.href} event={contact.event} external class="mt-6 w-full">
             {contact.label}
           </Button>
@@ -93,12 +126,7 @@ const serviceJsonLd = {
       eyebrow={isAudit ? 'Serviços' : 'Outros serviços'}
       title={isAudit ? 'O que a 55 Tech faz.' : 'Veja também.'}
     />
-    <ul
-      class:list={[
-        'mt-12 grid gap-5 md:grid-cols-2',
-        otherServices.length === 3 && 'lg:grid-cols-3',
-      ]}
-    >
+    <ul class="mt-12 grid gap-5 md:grid-cols-2 lg:grid-cols-3">
       {otherServices.map((service) => (
         <li>
           <ServiceCard service={service} />

@@ -26,7 +26,8 @@ export const steps = [
 export const workFormats = [
   {
     title: 'Projetos fechados',
-    description: 'Site, landing page, identidade digital ou sistema, com escopo e preço definidos.',
+    description:
+      'Site, landing page, identidade visual, sistema ou aplicativo, com escopo e preço definidos.',
   },
   {
     title: 'Consultoria e otimização',

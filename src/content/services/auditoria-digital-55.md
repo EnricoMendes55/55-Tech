@@ -1,6 +1,6 @@
 ---
 kind: audit
-order: 5
+order: 7
 title: 'Auditoria Digital 55'
 summary: 'Uma análise do seu site atual: experiência no celular, SEO técnico básico, desempenho e oportunidades de conversão.'
 goal: 'Saber o que melhorar primeiro no seu site, com prioridades claras.'

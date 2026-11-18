@@ -10,6 +10,7 @@ const audit = await getAuditOffer();
 const interests = [
   ...services.map((service) => service.data.title),
   audit.data.title,
+  'Mais de um serviço (solução integrada)',
   'Ainda não sei',
 ];
 const fieldClass =

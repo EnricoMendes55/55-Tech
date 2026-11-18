@@ -1,5 +1,5 @@
 ---
-// Os quatro serviços em grade e a Auditoria Digital 55 em destaque. Usado na home e em /servicos/.
+// Os serviços principais em grade e a Auditoria Digital 55 em destaque. Usado na home e em /servicos/.
 import ServiceCard from './ServiceCard.astro';
 import Button from './ui/Button.astro';
 import Eyebrow from './ui/Eyebrow.astro';
@@ -18,7 +18,7 @@ const services = await getServices();
 const audit = await getAuditOffer();
 ---
 
-<ul class="grid gap-5 md:grid-cols-2">
+<ul class="grid gap-5 md:grid-cols-2 lg:grid-cols-3">
   {services.map((service) => (
     <li>
       <ServiceCard service={service} headingTag={Heading} />

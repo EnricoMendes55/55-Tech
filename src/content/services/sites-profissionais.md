@@ -1,26 +1,29 @@
 ---
 kind: service
-order: 1
-number: '01'
-title: 'Presença digital'
-summary: 'Sites institucionais, landing pages, páginas de vendas, reformulação de sites e identidade visual digital.'
+order: 3
+number: '03'
+title: 'Sites Profissionais'
+summary: 'Sites institucionais e comerciais para apresentar a empresa, seus produtos e serviços.'
 goal: 'Apresentar melhor a empresa, transmitir confiança e gerar oportunidades.'
-seoDescription: 'Sites institucionais, landing pages e páginas de vendas para apresentar bem a sua empresa, transmitir confiança e gerar oportunidades.'
+seoDescription: 'Sites institucionais e comerciais para apresentar a sua empresa, seus produtos e serviços, transmitir confiança e gerar oportunidades.'
+combinesWith:
+  - identidade-visual
+  - sistemas-personalizados
+  - crescimento-e-visibilidade-digital
 ---
 
 ## Para quem é
 
 - Empresas que ainda não têm site e dependem só das redes sociais para serem encontradas.
 - Quem tem um site antigo, lento ou difícil de atualizar, que já não representa a empresa.
-- Quem vai lançar um produto, serviço ou campanha e precisa de uma página com um objetivo claro.
+- Empresas que querem apresentar produtos e serviços com mais detalhes do que cabe nas redes sociais.
 
 ## O que pode incluir
 
 - **Site institucional:** páginas que explicam quem é a empresa, o que ela faz e como entrar em contato.
-- **Landing page:** uma página com um único objetivo, como receber contatos de uma campanha.
-- **Página de vendas:** a apresentação completa de um produto ou serviço, do problema que ele resolve até a chamada para ação.
+- **Site comercial:** páginas que apresentam produtos e serviços em detalhes, com caminhos claros até o contato.
 - **Reformulação de site:** reorganização do conteúdo, novo visual e correção de problemas técnicos de um site existente.
-- **Identidade visual digital:** aplicação da sua marca em cores, tipografia e componentes pensados para telas.
+- **Integração com outras ferramentas:** formulários, WhatsApp, agendamentos ou um sistema da empresa, conforme o escopo do projeto.
 
 ## Como trabalhamos
 

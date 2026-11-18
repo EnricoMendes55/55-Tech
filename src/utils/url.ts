@@ -11,7 +11,7 @@ const withoutTrailingSlash = (path: string) => path.replace(/\/+$/, '') || '/';
 /**
  * Estado de `path` (sem o base path) em relação à página aberta, para o atributo aria-current:
  * 'page' quando é a própria página; 'true' quando a página aberta está dentro dela
- * (ex.: /servicos/presenca-digital/ dentro de /servicos/); undefined nos demais casos.
+ * (ex.: /servicos/sites-profissionais/ dentro de /servicos/); undefined nos demais casos.
  * Âncoras ('/#servicos') e a página inicial nunca contam como seção atual.
  */
 export function getCurrentState(

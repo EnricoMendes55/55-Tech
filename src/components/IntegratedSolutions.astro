@@ -1,0 +1,58 @@
+---
+// Seção Soluções integradas: os serviços podem ser contratados separadamente ou combinados.
+// Usada na home e em /servicos/. Os textos ficam em src/data/solutions.ts.
+import Section from './layout/Section.astro';
+import Card from './ui/Card.astro';
+import SectionHeading from './ui/SectionHeading.astro';
+import { integratedSolutions as content } from '../data/solutions';
+---
+
+<Section id="solucoes-integradas" class="border-t border-surface/60">
+  <div class="grid gap-12 lg:grid-cols-2 lg:items-center lg:gap-16">
+    <div>
+      <SectionHeading
+        eyebrow={content.eyebrow}
+        title={content.title}
+        description={content.description}
+      />
+      <p class="mt-6 max-w-2xl border-l-2 border-violet pl-5 leading-relaxed text-ice">
+        <span class="mb-1 block font-mono text-xs uppercase tracking-widest text-lavender">
+          Exemplo
+        </span>
+        {content.example}
+      </p>
+      <p class="mt-6 max-w-2xl text-sm leading-relaxed text-muted">{content.scopeNote}</p>
+    </div>
+
+    <!-- Diagrama: três pontos ligados por linhas a um centro comum. As linhas são decorativas. -->
+    <div>
+      <ul class="grid grid-cols-3 gap-3">
+        {content.diagram.nodes.map((node) => (
+          <li class="flex flex-col items-center">
+            <Card class="w-full px-2 py-5 text-center font-display text-sm font-bold sm:text-lg">
+              {node}
+            </Card>
+            <span class="h-8 w-px bg-violet" aria-hidden="true" />
+          </li>
+        ))}
+      </ul>
+      <div class="relative h-8" aria-hidden="true">
+        <!-- Liga o centro do primeiro card ao do último: 1/6 da largura, descontados os dois gaps. -->
+        <span class="bg-brand-gradient absolute left-[calc((100%-1.5rem)/6)] right-[calc((100%-1.5rem)/6)] top-0 h-px" />
+        <span class="absolute left-1/2 top-0 h-full w-px -translate-x-1/2 bg-violet" />
+      </div>
+      <p class="border-brand-gradient mx-auto max-w-xs rounded-full px-6 py-3 text-center font-mono text-xs uppercase tracking-widest text-ice">
+        {content.diagram.hub}
+      </p>
+    </div>
+  </div>
+
+  <ul class="mt-16 grid gap-8 md:grid-cols-3">
+    {content.benefits.map((benefit) => (
+      <li class="border-l-2 border-violet pl-5">
+        <h3 class="font-display text-lg font-bold">{benefit.title}</h3>
+        <p class="mt-2 text-sm leading-relaxed text-muted">{benefit.description}</p>
+      </li>
+    ))}
+  </ul>
+</Section>

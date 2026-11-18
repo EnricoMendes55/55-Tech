@@ -6,27 +6,30 @@ import Breadcrumbs from '../../components/layout/Breadcrumbs.astro';
 import PageHeader from '../../components/layout/PageHeader.astro';
 import SectionHeading from '../../components/ui/SectionHeading.astro';
 import ServiceGrid from '../../components/ServiceGrid.astro';
+import IntegratedSolutions from '../../components/IntegratedSolutions.astro';
 import WorkFormats from '../../components/WorkFormats.astro';
 import CallToAction from '../../components/CallToAction.astro';
 ---
 
 <BaseLayout
   title="Serviços"
-  description="Presença digital, sistemas sob medida, design de produto e performance: os serviços da 55 Tech para melhorar o seu negócio com tecnologia."
+  description="Identidade visual, landing pages, sites, sistemas, aplicativos e crescimento digital: serviços da 55 Tech, contratados separadamente ou combinados."
 >
   <Container class="pb-20 pt-10 sm:pb-28">
     <Breadcrumbs items={[{ label: 'Serviços' }]} />
     <div class="mt-8">
       <PageHeader
         eyebrow="Serviços"
-        title="Quatro frentes, um objetivo: melhorar o seu negócio."
-        description="Do primeiro site ao sistema sob medida, cada serviço parte de um problema concreto da sua empresa."
+        title="Soluções digitais completas, do logotipo ao aplicativo."
+        description="Contrate um serviço específico ou combine vários em um projeto integrado. Cada um parte de um problema concreto da sua empresa."
       />
     </div>
     <div class="mt-12">
       <ServiceGrid contactPath="/contato/" headingTag="h2" />
     </div>
   </Container>
+
+  <IntegratedSolutions />
 
   <Section tone="alt">
     <SectionHeading

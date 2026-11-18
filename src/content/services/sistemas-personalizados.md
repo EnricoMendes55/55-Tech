@@ -1,11 +1,14 @@
 ---
 kind: service
-order: 2
-number: '02'
-title: 'Sistemas e soluções digitais'
-summary: 'Sistemas de gestão personalizados, painéis administrativos, integrações e melhorias em aplicações existentes.'
+order: 4
+number: '04'
+title: 'Sistemas Personalizados'
+summary: 'Sistemas de gestão, automações, painéis e integrações sob medida para a sua operação.'
 goal: 'Reduzir tarefas manuais, organizar informações e ganhar eficiência.'
-seoDescription: 'Sistemas de gestão sob medida, painéis administrativos e integrações para reduzir tarefas manuais e organizar as informações da sua empresa.'
+seoDescription: 'Sistemas de gestão sob medida, automações, painéis administrativos e integrações para reduzir tarefas manuais e organizar as informações da empresa.'
+combinesWith:
+  - aplicativos
+  - sites-profissionais
 ---
 
 ## Para quem é
@@ -18,12 +21,14 @@ seoDescription: 'Sistemas de gestão sob medida, painéis administrativos e inte
 
 - **Sistema de gestão personalizado:** cadastros, pedidos, agendamentos ou o que a sua operação precisar organizar.
 - **Painel administrativo:** um lugar só para consultar informações e acompanhar o andamento do trabalho.
+- **Automações:** tarefas repetitivas, como avisos, relatórios e atualizações de status, feitas pelo sistema em vez de manualmente.
 - **Integrações:** fazer ferramentas que você já usa trocarem informações, sem digitar a mesma coisa duas vezes.
+- **Estruturação de fluxos:** o caminho que cada pessoa percorre para concluir uma tarefa, sem etapas desnecessárias.
 - **Melhorias em aplicações existentes:** novas funções, correções e ajustes de desempenho em um sistema que já está em uso.
 
 ## Como trabalhamos
 
-Antes de desenhar qualquer tela, entendemos o processo atual: quem faz o quê, onde a informação se perde e o que mais consome tempo.
+Antes de desenhar qualquer tela, entendemos o processo atual: quem faz o quê, onde a informação se perde e o que mais consome tempo. Quando o projeto pede, validamos as telas principais em um protótipo navegável antes de programar.
 
 A partir disso, construímos primeiro o essencial, uma versão que resolve o problema principal, e evoluímos em etapas, com validações de quem vai usar o sistema no dia a dia.
 

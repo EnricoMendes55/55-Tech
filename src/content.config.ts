@@ -1,15 +1,15 @@
 // Schemas das coleções de conteúdo. O build falha se algum arquivo tiver campo faltando ou errado.
-import { defineCollection } from 'astro:content';
+import { defineCollection, reference } from 'astro:content';
 import { glob } from 'astro/loaders';
 import { z } from 'astro/zod';
 
 // Um arquivo Markdown por serviço em src/content/services/. O nome do arquivo vira a URL:
-// presenca-digital.md → /servicos/presenca-digital/ (URL pública: não renomear sem redirecionamento).
+// sites-profissionais.md → /servicos/sites-profissionais/ (URL pública: não renomear sem redirecionamento).
 const services = defineCollection({
   loader: glob({ pattern: '*.md', base: './src/content/services' }),
   schema: z
     .object({
-      /** 'service' = uma das frentes; 'audit' = a oferta de entrada (Auditoria Digital 55). */
+      /** 'service' = um dos serviços principais; 'audit' = a oferta de entrada (Auditoria Digital 55). */
       kind: z.enum(['service', 'audit']),
       /** Ordem de exibição entre os serviços. */
       order: z.number().int(),
@@ -27,6 +27,11 @@ const services = defineCollection({
       seoDescription: z.string().max(160),
       /** Entregas em destaque (usado pela auditoria). */
       deliverables: z.array(z.string()).default([]),
+      /**
+       * Serviços que costumam ser contratados junto com este (bloco "Combina com").
+       * Use o nome do arquivo sem .md; o build falha se o serviço não existir.
+       */
+      combinesWith: z.array(reference('services')).default([]),
     })
     .refine((data) => data.kind === 'audit' || data.number, {
       message: 'Serviços precisam de `number`.',

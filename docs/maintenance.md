@@ -16,14 +16,19 @@ O site abre em http://localhost:4321/55-Tech/ e recarrega a cada alteração.
 - `whatsapp`: só dígitos, com DDI e DDD (ex.: `5548999999999`). Vazio: os botões de contato
   direto levam ao Instagram, o formulário não aparece e "Solicitar orçamento" leva à página
   `/contato/`.
+- `email`: vazio = não aparece no site.
+- `availability`: dias de atendimento e área de atuação, exibidos com os canais de contato.
+- `ga4Id`: vazio = sem analytics e sem banner de cookies. Preenchido, o banner aparece e o
+  Google Analytics só carrega depois que o visitante aceita.
+
+**Formulário de orçamento** — rótulos, opções de prazo, orientações, nota, mensagens de erro e o
+formato da mensagem do WhatsApp em `src/data/contactForm.ts`. As opções de serviço vêm de
+`src/content/services/`. Os passos de "O que acontece em seguida" (`/contato/`) ficam em
+`afterRequestSteps`, em `src/data/process.ts`.
 
 **Botões de orçamento e contato** — rótulos e mensagens prontas em `src/utils/contact.ts`. Para
 um novo botão de orçamento, use `getQuoteHref(idDoServiço)` e `quoteRequest.event`. Os nomes das
 páginas citados na mensagem do WhatsApp ficam em `src/utils/pages.ts`.
-
-- `email`: vazio = não aparece no site.
-- `ga4Id`: vazio = sem analytics e sem banner de cookies. Preenchido, o banner aparece e o
-  Google Analytics só carrega depois que o visitante aceita.
 
 **Editar um serviço ou a Auditoria Digital 55** — `src/content/services/<nome>.md`.
 O cabeçalho entre `---` tem os campos curtos (título, resumo do card, objetivo, descrição para

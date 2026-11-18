@@ -27,10 +27,11 @@ src/
   assets/               Logos; o Astro otimiza no build (astro:assets)
   styles/global.css     Tailwind, tokens da marca (@theme), utilitários e estilos base
   data/                 Conteúdo estruturado e tipado
-    site.ts             Nome, slogan, descrição, contatos, GA4 e menu (navigation)
+    site.ts             Nome, slogan, descrição, contatos, dias de atendimento, GA4 e menu
+    contactForm.ts      Textos do formulário de orçamento e da mensagem que ele prepara
     about.ts            Diferenciais (home e /quem-somos/)
     projects.ts         Projetos & Experimentos
-    process.ts          Etapas do processo e formatos de trabalho
+    process.ts          Etapas do processo, passos depois do pedido de orçamento e formatos de trabalho
     solutions.ts        Textos da seção Soluções integradas (home e /servicos/)
     team.ts             Equipe exibida em /quem-somos/
   layouts/
@@ -47,7 +48,9 @@ src/
     IntegratedSolutions             Seção Soluções integradas (#solucoes-integradas)
     TeamSection                     Seção Equipe de /quem-somos/
     ProjectCard
-  scripts/analytics.ts  Consentimento e GA4 (roda no navegador)
+  scripts/              Rodam no navegador
+    analytics.ts        Consentimento e GA4
+    quoteMessage.ts     buildQuoteMessage(): texto do pedido de orçamento para o WhatsApp
   utils/
     url.ts              url() prefixa links internos; getCurrentState() calcula o aria-current
     contact.ts          Pedido de orçamento (quoteRequest, getQuoteHref) e contato direto
@@ -124,8 +127,12 @@ src/
 
 - `Header.astro`: abre e fecha o menu do celular (`#menu-button`, `#mobile-menu`); Esc fecha
   e devolve o foco ao botão.
-- `ContactForm.astro`: valida o formulário (`#contact-form`) e abre o WhatsApp com a mensagem
-  pronta. Nada é enviado a servidor algum. O parâmetro `?servico=` (nome do arquivo do serviço,
+- `ContactForm.astro`: valida o formulário (`#contact-form`, com `novalidate`: a validação é do
+  script, para que campos só com espaços contem como vazios e as mensagens sejam as de
+  `contactForm.ts`) e abre o WhatsApp com a mensagem pronta (`buildQuoteMessage`). Campos
+  opcionais vazios não entram na mensagem; a primeira linha vem do `data-opening` da opção
+  escolhida, e a última cita a página (`data-page` do formulário). Nada é enviado a servidor
+  algum nem guardado no navegador. O parâmetro `?servico=` (nome do arquivo do serviço,
   ou `solucao-integrada`) deixa o assunto já selecionado; só vale um valor que corresponda
   exatamente a uma opção (`data-slug`), e qualquer outro mantém "Selecione uma opção".
 - `ConsentBanner.astro` + `scripts/analytics.ts`: banner de consentimento e carregamento do GA4.

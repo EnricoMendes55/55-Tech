@@ -16,7 +16,7 @@ interface Site {
 
 export const site: Site = {
   name: '55 Tech',
-  tagline: 'Tecnologia que faz seu negócio evoluir.',
+  tagline: 'Tecnologia que faz negócios evoluírem.',
   description:
     'Estratégia, design e desenvolvimento para empresas que querem crescer com soluções digitais melhores.',
   whatsapp: '5548991777530',

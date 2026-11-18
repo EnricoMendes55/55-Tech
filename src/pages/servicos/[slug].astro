@@ -12,7 +12,7 @@ import Button from '../../components/ui/Button.astro';
 import SectionHeading from '../../components/ui/SectionHeading.astro';
 import ServiceCard from '../../components/ServiceCard.astro';
 import { site } from '../../data/site';
-import { getContactAbout } from '../../utils/contact';
+import { getContactAbout, getQuoteHref, quoteRequest } from '../../utils/contact';
 import {
   getAuditOffer,
   getCombinedServices,
@@ -37,6 +37,11 @@ const { Content } = await render(entry);
 
 const isAudit = kind === 'audit';
 const contact = getContactAbout(isAudit ? `a ${title}` : `o serviço de ${title}`);
+// Pedido pelo formulário, com este serviço já selecionado.
+const quote = {
+  href: getQuoteHref(entry.id),
+  label: isAudit ? quoteRequest.auditLabel : quoteRequest.label,
+};
 const otherServices = (await getServices()).filter((service) => service.id !== entry.id);
 const combinedServices = await getCombinedServices(entry);
 
@@ -63,6 +68,10 @@ const serviceJsonLd = {
         title={title}
         description={summary}
       />
+      {/* No celular a lateral fica depois do texto: este botão deixa o pedido perto do resumo. */}
+      <Button href={quote.href} event={quoteRequest.event} wrap class="mt-8 lg:hidden">
+        {quote.label}
+      </Button>
     </div>
 
     <div class="mt-14 grid gap-12 lg:grid-cols-[minmax(0,1fr)_20rem] lg:gap-16">
@@ -107,13 +116,19 @@ const serviceJsonLd = {
               </p>
             </div>
           )}
-          <Button href={contact.href} event={contact.event} external class="mt-6 w-full">
-            {contact.label}
+          <Button href={quote.href} event={quoteRequest.event} wrap class="mt-6 w-full">
+            {quote.label}
           </Button>
           <p class="mt-4 text-center text-sm text-muted">
-            ou use o{' '}
-            <a href={url('/contato/')} class="text-ice underline underline-offset-4">
-              formulário de contato
+            ou fale direto pelo{' '}
+            <a
+              href={contact.href}
+              data-event={contact.event}
+              target="_blank"
+              rel="noopener noreferrer"
+              class="text-ice underline underline-offset-4"
+            >
+              {contact.channel}
             </a>
           </p>
         </Card>

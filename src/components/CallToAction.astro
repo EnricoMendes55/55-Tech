@@ -1,10 +1,12 @@
 ---
-// Bloco final das páginas internas: convite para conversar, com WhatsApp e a página de contato.
+// Bloco final das páginas internas: pedido de orçamento, com o WhatsApp direto como alternativa.
 import Section from './layout/Section.astro';
 import Button from './ui/Button.astro';
 import Eyebrow from './ui/Eyebrow.astro';
-import { primaryContact } from '../utils/contact';
-import { url } from '../utils/url';
+import { getDirectContact, getQuoteHref, quoteRequest } from '../utils/contact';
+import { getPageName } from '../utils/pages';
+
+const directContact = getDirectContact(await getPageName(Astro.url.pathname));
 ---
 
 <Section>
@@ -17,11 +19,11 @@ import { url } from '../utils/url';
       Conte o que você precisa. A primeira conversa é sem compromisso.
     </p>
     <div class="mt-8 flex flex-wrap gap-4">
-      <Button href={primaryContact.href} event={primaryContact.event} external>
-        {primaryContact.label}
+      <Button href={getQuoteHref()} event={quoteRequest.event}>
+        {quoteRequest.label}
       </Button>
-      <Button href={url('/contato/')} variant="secondary">
-        Ver formas de contato
+      <Button href={directContact.href} event={directContact.event} variant="secondary" external>
+        {directContact.label}
       </Button>
     </div>
   </div>

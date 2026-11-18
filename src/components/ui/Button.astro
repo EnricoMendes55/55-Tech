@@ -5,10 +5,25 @@ interface Props {
   variant?: 'primary' | 'secondary';
   event?: string;
   external?: boolean;
+  /** Nome acessível, quando o texto visível é uma versão curta dele (ex.: "Orçamento"). */
+  ariaLabel?: string;
+  /**
+   * Permite quebrar o texto em duas linhas quando falta largura (tela estreita ou letra
+   * ampliada), em vez de o botão passar da borda da tela.
+   */
+  wrap?: boolean;
   class?: string;
 }
 
-const { href, variant = 'primary', event, external = false, class: className } = Astro.props;
+const {
+  href,
+  variant = 'primary',
+  event,
+  external = false,
+  ariaLabel,
+  wrap = false,
+  class: className,
+} = Astro.props;
 
 const variants = {
   primary: 'bg-action-gradient text-deep-black hover:brightness-110',
@@ -19,10 +34,12 @@ const variants = {
 <a
   href={href}
   data-event={event}
+  aria-label={ariaLabel}
   target={external ? '_blank' : undefined}
   rel={external ? 'noopener noreferrer' : undefined}
   class:list={[
-    'inline-flex items-center justify-center whitespace-nowrap rounded-full px-6 py-3 text-sm font-bold transition',
+    'inline-flex items-center justify-center rounded-full px-6 py-3 text-sm font-bold transition',
+    wrap ? 'max-w-full text-center' : 'whitespace-nowrap',
     variants[variant],
     className,
   ]}

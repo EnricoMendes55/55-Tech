@@ -4,14 +4,17 @@ import logo from '../assets/logo-55.png';
 import Button from './ui/Button.astro';
 import Container from './layout/Container.astro';
 import { navigation } from '../data/site';
-import { primaryContact } from '../utils/contact';
+import { getDirectContact, getQuoteHref, quoteRequest } from '../utils/contact';
+import { getPageName } from '../utils/pages';
 import { getCurrentState, url } from '../utils/url';
 
 const currentPath = Astro.url.pathname;
+const quoteHref = getQuoteHref();
+const directContact = getDirectContact(await getPageName(currentPath));
 ---
 
 <header class="sticky top-0 z-40 border-b border-surface/60 bg-deep-black/85 backdrop-blur">
-  <Container class="flex items-center justify-between gap-6 py-3">
+  <Container class="flex items-center justify-between gap-4 py-3 sm:gap-6">
     <a href={url('/')} class="flex items-center gap-3" aria-label="55 Tech, página inicial">
       <Image src={logo} alt="" width={124} class="h-9 w-auto" loading="eager" />
       <span class="font-display text-sm font-medium tracking-[0.35em] text-ice">TECH</span>
@@ -34,16 +37,20 @@ const currentPath = Astro.url.pathname;
     </nav>
 
     <div class="flex items-center gap-3">
-      <div class="hidden sm:block">
-        <Button
-          href={primaryContact.href}
-          event={primaryContact.event}
-          external
-          class="px-5 py-2.5"
-        >
-          {primaryContact.label}
-        </Button>
-      </div>
+      {/*
+          Orçamento no cabeçalho: rótulo completo a partir de 640 px; "Orçamento" entre 360 e
+          639 px; abaixo de 360 px (22,5rem, que acompanha o tamanho de letra do navegador) não
+          cabe ao lado do logo e fica só no menu. O nome acessível é sempre o completo.
+        */}
+      <Button
+        href={quoteHref}
+        event={quoteRequest.event}
+        ariaLabel={quoteRequest.label}
+        class="py-2.5 max-[22.5rem]:hidden max-sm:px-4 sm:px-5"
+      >
+        <span class="sm:hidden">{quoteRequest.shortLabel}</span>
+        <span class="hidden sm:inline">{quoteRequest.label}</span>
+      </Button>
 
       <button
         id="menu-button"
@@ -86,6 +93,20 @@ const currentPath = Astro.url.pathname;
           </a>
         </li>
       ))}
+      <li class="mt-2 flex flex-col items-start gap-1 border-t border-surface/60 pt-4">
+        <Button href={quoteHref} event={quoteRequest.event} wrap>
+          {quoteRequest.label}
+        </Button>
+        <a
+          href={directContact.href}
+          data-event={directContact.event}
+          target="_blank"
+          rel="noopener noreferrer"
+          class="block py-3 font-medium text-ice"
+        >
+          {directContact.label}
+        </a>
+      </li>
     </Container>
   </nav>
 </header>

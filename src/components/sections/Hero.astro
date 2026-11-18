@@ -3,8 +3,12 @@ import Button from '../ui/Button.astro';
 import Eyebrow from '../ui/Eyebrow.astro';
 import Container from '../layout/Container.astro';
 import { site } from '../../data/site';
-import { primaryContact } from '../../utils/contact';
-import { url } from '../../utils/url';
+import { getDirectContact, getQuoteHref, quoteRequest } from '../../utils/contact';
+import { getPageName } from '../../utils/pages';
+
+// O hero só existe na home: o orçamento leva ao formulário da própria página (#contato).
+const quoteHref = getQuoteHref(undefined, { onHome: true });
+const directContact = getDirectContact(await getPageName(Astro.url.pathname));
 ---
 
 <section class="relative overflow-hidden">
@@ -23,11 +27,11 @@ import { url } from '../../utils/url';
     <p class="mt-6 max-w-xl text-lg leading-relaxed text-muted">{site.description}</p>
 
     <div class="mt-9 flex flex-wrap gap-4">
-      <Button href={primaryContact.href} event={primaryContact.event} external>
-        {primaryContact.label}
+      <Button href={quoteHref} event={quoteRequest.event}>
+        {quoteRequest.label}
       </Button>
-      <Button href={url('/#servicos')} variant="secondary">
-        Ver serviços
+      <Button href={directContact.href} event={directContact.event} variant="secondary" external>
+        {directContact.label}
       </Button>
     </div>
 

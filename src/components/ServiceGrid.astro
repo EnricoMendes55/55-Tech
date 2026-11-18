@@ -3,19 +3,21 @@
 import ServiceCard from './ServiceCard.astro';
 import Button from './ui/Button.astro';
 import Eyebrow from './ui/Eyebrow.astro';
+import { getQuoteHref, quoteRequest } from '../utils/contact';
 import { getAuditOffer, getServices, servicePath } from '../utils/services';
 import { url } from '../utils/url';
 
 interface Props {
-  /** Destino de "Pedir uma auditoria": a âncora na home, a página /contato/ nas demais. */
-  contactPath: string;
+  /** true na home: "Solicitar a Auditoria" leva ao formulário da própria página (#contato). */
+  onHome?: boolean;
   /** Nível dos títulos dos cards (h2 logo abaixo do h1 da página, h3 dentro de uma seção). */
   headingTag?: 'h2' | 'h3';
 }
 
-const { contactPath, headingTag: Heading = 'h3' } = Astro.props;
+const { onHome = false, headingTag: Heading = 'h3' } = Astro.props;
 const services = await getServices();
 const audit = await getAuditOffer();
+const auditRequestHref = getQuoteHref(audit.id, { onHome });
 ---
 
 <ul class="grid gap-5 md:grid-cols-2 lg:grid-cols-3">
@@ -38,8 +40,8 @@ const audit = await getAuditOffer();
     </ul>
   </div>
   <div class="flex shrink-0 flex-col items-start gap-4 md:items-center">
-    <Button href={url(contactPath)} variant="secondary">
-      Pedir uma auditoria
+    <Button href={auditRequestHref} event={quoteRequest.event} variant="secondary" wrap>
+      {quoteRequest.auditLabel}
     </Button>
     <a href={url(servicePath(audit))} class="text-sm font-bold text-cyan hover:underline">
       Como funciona a auditoria →

@@ -6,6 +6,11 @@ export function url(path = '/'): string {
   return `${base}${path.startsWith('/') ? path : `/${path}`}`;
 }
 
+/** Caminho da página aberta sem o base path (ex.: '/55-Tech/contato/' → '/contato/'). */
+export function withoutBase(pathname: string): string {
+  return (pathname.startsWith(base) ? pathname.slice(base.length) : pathname) || '/';
+}
+
 const withoutTrailingSlash = (path: string) => path.replace(/\/+$/, '') || '/';
 
 /**

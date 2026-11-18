@@ -1,25 +1,27 @@
 ---
 // Canais de contato: o principal em destaque, depois Instagram e e-mail quando houver.
 import { site } from '../data/site';
-import { instagramUrl, primaryContact } from '../utils/contact';
+import { getDirectContact, instagramUrl } from '../utils/contact';
+import { getPageName } from '../utils/pages';
 
 interface Props {
   class?: string;
 }
 
 const { class: className } = Astro.props;
+const directContact = getDirectContact(await getPageName(Astro.url.pathname));
 ---
 
 <ul class:list={['space-y-4', className]}>
   <li>
     <a
-      href={primaryContact.href}
-      data-event={primaryContact.event}
+      href={directContact.href}
+      data-event={directContact.event}
       target="_blank"
       rel="noopener noreferrer"
       class="font-display text-xl font-bold text-brand-gradient"
     >
-      {primaryContact.label} →
+      {directContact.label} →
     </a>
   </li>
   {site.whatsapp && (

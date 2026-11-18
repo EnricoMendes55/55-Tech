@@ -51,17 +51,18 @@ import { instagramUrl } from '../utils/contact';
       <section>
         <h2 class="font-display text-xl font-bold text-ice">Dúvidas</h2>
         <p class="mt-3">
-          Fale com a gente
+          {/* Os {' '} garantem os espaços: o Astro descarta quebras de linha junto de expressões. */}
+          Fale com a gente{' '}
           {site.email && (
             <>
               pelo e-mail{' '}
               <a href={`mailto:${site.email}`} class="text-ice underline underline-offset-4">
                 {site.email}
               </a>{' '}
-              ou
+              ou{' '}
             </>
           )}
-          pelo Instagram
+          pelo Instagram{' '}
           <a
             href={instagramUrl}
             class="text-ice underline underline-offset-4"

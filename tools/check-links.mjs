@@ -46,7 +46,8 @@ for (const file of htmlFiles(dist)) {
     if (!isInternal) continue;
     checked++;
 
-    const [pathname, hash] = value.split('#');
+    const [beforeHash, hash] = value.split('#');
+    const [pathname, query = ''] = beforeHash.split('?');
     const target = pathname ? resolveFile(pathname) : file;
     if (!target) {
       errors.push(`${page}: ${attr}="${value}" aponta para um arquivo que não existe`);
@@ -54,6 +55,13 @@ for (const file of htmlFiles(dist)) {
     }
     if (hash && !idsOf(target).has(hash)) {
       errors.push(`${page}: ${attr}="${value}" usa a âncora #${hash}, que não existe no destino`);
+    }
+    // ?servico= pré-seleciona uma opção do formulário: ela precisa existir no destino.
+    const service = new URLSearchParams(query).get('servico');
+    if (service && !readFileSync(target, 'utf8').includes(`data-slug="${service}"`)) {
+      errors.push(
+        `${page}: ${attr}="${value}" usa ?servico=${service}, que não é opção do formulário`,
+      );
     }
   }
 }
